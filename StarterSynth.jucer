@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="s5qj1u" name="StarterSynth" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.StarterSynth" includeBinaryInAppConfig="1"
+              jucerVersion="3.1.0" userNotes="https://docs.google.com/a/princeton.edu/document/d/1SdCPHwvLefaPH1YfEDlP7aSBnPXuYt_SKJ5uchtKsz0/edit">
+  <MAINGROUP id="stuYrW" name="StarterSynth">
+    <GROUP id="{7F1431DB-8D06-B57E-DE8A-9D199B945CB7}" name="Source">
+      <FILE id="CCxREH" name="Controllable.cpp" compile="1" resource="0"
+            file="Source/Controllable.cpp"/>
+      <FILE id="zVVtR5" name="Controllable.h" compile="1" resource="0" file="Source/Controllable.h"/>
+      <FILE id="YWaaTQ" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="xwQg4R" name="MainComponent.h" compile="1" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="pnnsZX" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="C7QX11" name="ModSynth.cpp" compile="1" resource="0" file="Source/ModSynth.cpp"/>
+      <FILE id="i8x8Vb" name="ModSynth.h" compile="1" resource="0" file="Source/ModSynth.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="1" optimisation="1" targetName="StarterSynth"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="0" optimisation="2" targetName="StarterSynth"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../Libraries/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/Linux">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="StarterSynth"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
+                       targetName="StarterSynth"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../Libraries/JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_video" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
