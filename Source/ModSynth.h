@@ -10,12 +10,24 @@
 #define __StarterSynth__ModSynth__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "ModVoice.h"
 
-class ModSynth : public Synthesiser
+class ModSynth : public AudioSource
 {
 public:
+    ModSynth(MidiKeyboardState& keyState);
+    
+    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
+    
+    void releaseResources() override;
+    
+    void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
+    
+    MidiMessageCollector midiCollector;
     
 private:
+    Synthesiser synth;
+    MidiKeyboardState& keyboardState;
     
 };
 

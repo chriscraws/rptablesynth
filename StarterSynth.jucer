@@ -5,6 +5,8 @@
               jucerVersion="3.1.0" userNotes="https://docs.google.com/a/princeton.edu/document/d/1SdCPHwvLefaPH1YfEDlP7aSBnPXuYt_SKJ5uchtKsz0/edit">
   <MAINGROUP id="stuYrW" name="StarterSynth">
     <GROUP id="{7F1431DB-8D06-B57E-DE8A-9D199B945CB7}" name="Source">
+      <FILE id="odOtWe" name="ModVoice.cpp" compile="1" resource="0" file="Source/ModVoice.cpp"/>
+      <FILE id="iI64qu" name="ModVoice.h" compile="0" resource="0" file="Source/ModVoice.h"/>
       <FILE id="CCxREH" name="Controllable.cpp" compile="1" resource="0"
             file="Source/Controllable.cpp"/>
       <FILE id="zVVtR5" name="Controllable.h" compile="1" resource="0" file="Source/Controllable.h"/>

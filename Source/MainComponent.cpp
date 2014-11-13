@@ -10,21 +10,29 @@
 
 
 //==============================================================================
-MainContentComponent::MainContentComponent()
+MainContentComponent::MainContentComponent(AudioDeviceManager* manager)
+    :   deviceManager(manager),
+        synth(keyboardState)
 {
     setSize (500, 400);
     
-    //ModSynth* synth = new ModSynth();
-    
-    MidiKeyboardComponent* keyboard = new MidiKeyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard);
+    keyboard = new MidiKeyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard);
     
     keyboard->setBounds(8, 96, getWidth() - 16, 64);
     
     addAndMakeVisible(keyboard);
+    
+    deviceManager->initialise(0, 2, 0, true);
+    
+    audioSourcePlayer.setSource(&synth);
+    deviceManager->addAudioCallback(&audioSourcePlayer);
+    deviceManager->addMidiInputCallback(String::empty, &(synth.midiCollector));
+    
 }
 
 MainContentComponent::~MainContentComponent()
 {
+    deleteAllChildren();
 }
 
 void MainContentComponent::paint (Graphics& g)

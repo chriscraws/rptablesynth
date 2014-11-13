@@ -22,7 +22,7 @@ class MainContentComponent   : public Component
 {
 public:
     //==============================================================================
-    MainContentComponent();
+    MainContentComponent(AudioDeviceManager* manager);
     ~MainContentComponent();
 
     void paint (Graphics&);
@@ -32,7 +32,11 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 
+    AudioDeviceManager* deviceManager;
+    AudioSourcePlayer audioSourcePlayer;
     MidiKeyboardState keyboardState;
+    MidiKeyboardComponent* keyboard;
+    ModSynth synth;
 };
 
 
