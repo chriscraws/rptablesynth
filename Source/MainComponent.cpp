@@ -88,10 +88,10 @@ synth(keyboardState)
     rowTwoLabel3.setText(labelStr, DontSendNotification);
 
     // sound the dimensions and placements of the labels
-    envelopeLabel.setBounds( 15,  175, 80, 25);
-    rowTwoLabel1.setBounds(  140, 175, 80, 25);
-    rowTwoLabel2.setBounds(  275, 175, 80, 25);
-    rowTwoLabel3.setBounds(  410, 175, 80, 25);
+    envelopeLabel.setBounds( 15,  175, 80, 25 );
+    rowTwoLabel1.setBounds(  140, 175, 80, 25 );
+    rowTwoLabel2.setBounds(  275, 175, 80, 25 );
+    rowTwoLabel3.setBounds(  410, 175, 80, 25 );
 
     // make the labels visible
     addAndMakeVisible(envelopeLabel);
@@ -106,10 +106,10 @@ synth(keyboardState)
     rowTwoSlider3.setSliderStyle(Slider::SliderStyle::Rotary);
 
     // set the dimensions and placement of the rotary encoders
-    envelopeSlider.setBounds( 10,  205, 80, 50);
-    rowTwoSlider1.setBounds(    135, 205, 80, 50 );
-    rowTwoSlider2.setBounds(   270, 205, 80, 50 );
-    rowTwoSlider3.setBounds(    405, 205, 80, 50 );
+    envelopeSlider.setBounds( 10,  205, 80, 50 );
+    rowTwoSlider1.setBounds(  135, 205, 80, 50 );
+    rowTwoSlider2.setBounds(  270, 205, 80, 50 );
+    rowTwoSlider3.setBounds(  405, 205, 80, 50 );
     
     // make the rotary encoders visible
     addAndMakeVisible(envelopeSlider);
