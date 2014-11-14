@@ -34,8 +34,18 @@ private:
 
     AudioDeviceManager* deviceManager;
     AudioSourcePlayer audioSourcePlayer;
+    
+    // Declare the label objects
+    Label filterLabel;
+    Label mixerLabel;
+    Label reverbLabel;
+    Label delayLabel;
+    Label envelopeLabel;
+    
+    // Declare the pieces of the keyboard
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent* keyboard;
+    
     ModSynth synth;
 };
 
