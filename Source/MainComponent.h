@@ -47,6 +47,13 @@ private:
     MidiKeyboardComponent* keyboard;
     
     ModSynth synth;
+    
+    // Sliders
+    Slider filterSlider;
+    Slider mixerSlider;
+    Slider reverbSlider;
+    Slider delaySlider;
+    Slider envelopeSlider;
 };
 
 
