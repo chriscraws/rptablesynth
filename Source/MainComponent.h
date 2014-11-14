@@ -42,6 +42,10 @@ private:
     Label delayLabel;
     Label envelopeLabel;
     
+    Label rowTwoLabel1;
+    Label rowTwoLabel2;
+    Label rowTwoLabel3;
+    
     // Declare the pieces of the keyboard
     MidiKeyboardState keyboardState;
     MidiKeyboardComponent* keyboard;
@@ -54,6 +58,10 @@ private:
     Slider reverbSlider;
     Slider delaySlider;
     Slider envelopeSlider;
+    
+    Slider rowTwoSlider1;
+    Slider rowTwoSlider2;
+    Slider rowTwoSlider3;
 };
 
 
