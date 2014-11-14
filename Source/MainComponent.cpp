@@ -60,7 +60,7 @@ synth(keyboardState)
     mixerLabel.setBounds(100, 85, 50, 25);
     reverbLabel.setBounds(195, 85, 50, 25);
     delayLabel.setBounds(280, 85, 50, 25);
-    envelopeLabel.setBounds(365, 85, 50, 35);
+    envelopeLabel.setBounds(365, 85, 70, 35);
     
     // make the labels visible
     addAndMakeVisible(filterLabel);
@@ -80,15 +80,15 @@ synth(keyboardState)
     filterSlider.setBounds(15, 115, 50, 50);
     mixerSlider.setBounds(100, 115, 50, 50);
     reverbSlider.setBounds(195, 115, 50, 50);
-    delayLabel.setBounds(280, 115, 50, 50);
-    envelopeLabel.setBounds(365, 85, 50, 50);
+    delaySlider.setBounds(280, 115, 50, 50);
+    envelopeSlider.setBounds(365, 85, 50, 50);
     
     // make the rotary encoders visible
     addAndMakeVisible(filterSlider);
     addAndMakeVisible(mixerSlider);
     addAndMakeVisible(reverbSlider);
     addAndMakeVisible(delaySlider);
-    addAndMakeVisible(envelopeLabel);
+    addAndMakeVisible(envelopeSlider);
     
 }
 
