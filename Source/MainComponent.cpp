@@ -48,47 +48,54 @@ synth(keyboardState)
     
     NotificationType DontSendNotification = NotificationType(0);
     
+    // set up the first row of labels and rotary encoders
     // set labels on the screen
     filterLabel.setText(filterStr, DontSendNotification);
     mixerLabel.setText(mixerStr, DontSendNotification);
     reverbLabel.setText(reverbStr, DontSendNotification);
     delayLabel.setText(delayStr, DontSendNotification);
-    envelopeLabel.setText(envelopeStr, DontSendNotification);
+    
     
     // sound the dimensions and placement of the labels
-    filterLabel.setBounds(15, 85, 50, 25);
-    mixerLabel.setBounds(100, 85, 50, 25);
-    reverbLabel.setBounds(195, 85, 50, 25);
-    delayLabel.setBounds(280, 85, 50, 25);
-    envelopeLabel.setBounds(365, 85, 70, 35);
+    filterLabel.setBounds(15, 85, 80, 25);
+    mixerLabel.setBounds(140, 85, 80, 25);
+    reverbLabel.setBounds(275, 85, 80, 25);
+    delayLabel.setBounds(410, 85, 80, 25);
     
     // make the labels visible
     addAndMakeVisible(filterLabel);
     addAndMakeVisible(mixerLabel);
     addAndMakeVisible(reverbLabel);
     addAndMakeVisible(delayLabel);
-    addAndMakeVisible(envelopeLabel);
     
     // now set the style of the rotary encoders
     filterSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     mixerSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     reverbSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     delaySlider.setSliderStyle(Slider::SliderStyle::Rotary);
-    envelopeSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     
     // set the dimensions and placement of the rotary encoders
-    filterSlider.setBounds(15, 115, 50, 50);
-    mixerSlider.setBounds(100, 115, 50, 50);
-    reverbSlider.setBounds(195, 115, 50, 50);
-    delaySlider.setBounds(280, 115, 50, 50);
-    envelopeSlider.setBounds(365, 85, 50, 50);
+    filterSlider.setBounds(15, 115, 80, 50);
+    mixerSlider.setBounds(140, 115, 80, 50);
+    reverbSlider.setBounds(275, 115, 80, 50);
+    delaySlider.setBounds(410, 115, 80, 50);
     
     // make the rotary encoders visible
     addAndMakeVisible(filterSlider);
     addAndMakeVisible(mixerSlider);
     addAndMakeVisible(reverbSlider);
     addAndMakeVisible(delaySlider);
-    addAndMakeVisible(envelopeSlider);
+    
+    // start up the second row
+    
+    //envelopeLabel.setText(envelopeStr, DontSendNotification);
+    //envelopeLabel.setBounds(365, 85, 70, 25);
+    //addAndMakeVisible(envelopeLabel);
+    //envelopeSlider.setSliderStyle(Slider::SliderStyle::Rotary);
+    //envelopeSlider.setBounds(365, 85, 50, 50);
+    //addAndMakeVisible(envelopeSlider);
+
+
     
 }
 
