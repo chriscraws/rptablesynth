@@ -19,9 +19,7 @@ struct DefaultSound : public SynthesiserSound
 ModSynth::ModSynth(MidiKeyboardState& state) : keyboardState(state)
 {
     // add voices
-    for (int i = 0; i < 4; i++) {
-        synth.addVoice(new ModVoice());
-    }
+    synth.addVoice(new ModVoice());
     
     synth.addSound(new DefaultSound());
 }

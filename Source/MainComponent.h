@@ -36,15 +36,14 @@ private:
     AudioSourcePlayer audioSourcePlayer;
     
     // Declare the label objects
-    Label filterLabel;
+    Label filterLabel1;
+    Label filterLabel2;
     Label mixerLabel;
     Label reverbLabel;
-    Label delayLabel;
-    Label envelopeLabel;
-    
-    Label rowTwoLabel1;
-    Label rowTwoLabel2;
-    Label rowTwoLabel3;
+    Label envelopeLabel1;
+    Label envelopeLabel2;
+    Label LFOLabel1;
+    Label LFOLabel2;
     
     // Declare the pieces of the keyboard
     MidiKeyboardState keyboardState;
@@ -53,15 +52,14 @@ private:
     ModSynth synth;
     
     // Sliders
-    Slider filterSlider;
+    Slider filterSlider1;
+    Slider filterSlider2;
     Slider mixerSlider;
     Slider reverbSlider;
-    Slider delaySlider;
-    Slider envelopeSlider;
-    
-    Slider rowTwoSlider1;
-    Slider rowTwoSlider2;
-    Slider rowTwoSlider3;
+    Slider envelopeSlider1;
+    Slider envelopeSlider2;
+    Slider LFOSlider1;
+    Slider LFOSlider2;
 };
 
 

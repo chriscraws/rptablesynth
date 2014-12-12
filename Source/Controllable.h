@@ -14,8 +14,10 @@
 class Controllable
 {
 public:
-    Controllable(double min, double max);
+    Controllable(String tag, double min, double max);
     ~Controllable();
+    
+    String getTag();
     
     double getMax();
     double getMin();

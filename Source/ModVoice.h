@@ -16,6 +16,7 @@
 class ModVoice : public SynthesiserVoice
 {
 public:
+    
     bool canPlaySound(SynthesiserSound* sound) override;
     
     void startNote(int miniNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition) override;

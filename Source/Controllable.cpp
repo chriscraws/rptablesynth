@@ -8,7 +8,7 @@
 
 #include "Controllable.h"
 
-Controllable::Controllable(double min, double max)
+Controllable::Controllable(String, double min, double max)
 {
     minimum = min;
     maximum = max;
