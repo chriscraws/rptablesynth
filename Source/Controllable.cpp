@@ -53,6 +53,15 @@ void Controllable::setSampleRate(int rate) {
 // over <numSamples> entries in the <valueBuffer> argument passed through the function.
 void Controllable::setValueBuffer(double buff[], int numSamples) {
     for (int i = 0; i < numSamples; i++) {
+        
+        // for each value, ensure that each double in buff is between -1 and 1
+        if (buff[i] < -1) {
+            buff[i] = -1;
+        }
+        else if (buff[i] > 1) {
+            buff[i] = 1;
+        }
+        
         valueBuffer[i] = buff[i];
     }
 }

@@ -6,18 +6,28 @@
   <MAINGROUP id="stuYrW" name="StarterSynth">
     <GROUP id="{7F1431DB-8D06-B57E-DE8A-9D199B945CB7}" name="Source">
       <GROUP id="{9A840CAD-13AA-064E-6BCD-9A500EF270DA}" name="Oscillators"/>
-      <FILE id="w1M2pU" name="Oscillator.h" compile="1" resource="0" file="Source/Oscillator.h"/>
-      <FILE id="odOtWe" name="ModVoice.cpp" compile="1" resource="0" file="Source/ModVoice.cpp"/>
-      <FILE id="iI64qu" name="ModVoice.h" compile="1" resource="0" file="Source/ModVoice.h"/>
       <FILE id="CCxREH" name="Controllable.cpp" compile="1" resource="0"
             file="Source/Controllable.cpp"/>
+      <FILE id="sD5yTD" name="Envelope.cpp" compile="1" resource="0" file="Source/Envelope.cpp"/>
+      <FILE id="naUdaN" name="Envelope.h" compile="1" resource="0" file="Source/Envelope.h"/>
+      <FILE id="mxInTh" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
+      <FILE id="sWBGOm" name="Filter.h" compile="1" resource="0" file="Source/Filter.h"/>
       <FILE id="zVVtR5" name="Controllable.h" compile="1" resource="0" file="Source/Controllable.h"/>
+      <FILE id="pnnsZX" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="YWaaTQ" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+      <FILE id="USmls9" name="Mixer.cpp" compile="1" resource="0" file="Source/Mixer.cpp"/>
+      <FILE id="qRDo3F" name="Mixer.h" compile="1" resource="0" file="Source/Mixer.h"/>
       <FILE id="xwQg4R" name="MainComponent.h" compile="1" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="pnnsZX" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="C7QX11" name="ModSynth.cpp" compile="1" resource="0" file="Source/ModSynth.cpp"/>
       <FILE id="i8x8Vb" name="ModSynth.h" compile="1" resource="0" file="Source/ModSynth.h"/>
+      <FILE id="odOtWe" name="ModVoice.cpp" compile="1" resource="0" file="Source/ModVoice.cpp"/>
+      <FILE id="iI64qu" name="ModVoice.h" compile="1" resource="0" file="Source/ModVoice.h"/>
+      <FILE id="w1M2pU" name="Oscillator.h" compile="1" resource="0" file="Source/Oscillator.h"/>
+      <FILE id="EG4jrC" name="SynthComponent.cpp" compile="1" resource="0"
+            file="Source/SynthComponent.cpp"/>
+      <FILE id="N1xhMa" name="SynthComponent.h" compile="1" resource="0"
+            file="Source/SynthComponent.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
