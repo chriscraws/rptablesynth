@@ -174,7 +174,7 @@ public:
 
     int getRowNumberOfComponent (Component* const rowComponent) const noexcept
     {
-        const int index = getViewedComponent()->getIndexOfChildComponent (rowComponent);
+        const int index = getIndexOfChildComponent (rowComponent);
         const int num = rows.size();
 
         for (int i = num; --i >= 0;)
@@ -196,16 +196,15 @@ public:
     {
         hasUpdated = false;
 
-        Component& content = *getViewedComponent();
-        const int newX = content.getX();
-        int newY = content.getY();
+        const int newX = getViewedComponent()->getX();
+        int newY = getViewedComponent()->getY();
         const int newW = jmax (owner.minimumRowWidth, getMaximumVisibleWidth());
         const int newH = owner.totalItems * owner.getRowHeight();
 
         if (newY + newH < getMaximumVisibleHeight() && newH > getMaximumVisibleHeight())
             newY = getMaximumVisibleHeight() - newH;
 
-        content.setBounds (newX, newY, newW, newH);
+        getViewedComponent()->setBounds (newX, newY, newW, newH);
 
         if (makeSureItUpdatesContent && ! hasUpdated)
             updateContents();
@@ -215,12 +214,11 @@ public:
     {
         hasUpdated = true;
         const int rowH = owner.getRowHeight();
-        Component& content = *getViewedComponent();
 
         if (rowH > 0)
         {
             const int y = getViewPositionY();
-            const int w = content.getWidth();
+            const int w = getViewedComponent()->getWidth();
 
             const int numNeeded = 2 + getMaximumVisibleHeight() / rowH;
             rows.removeRange (numNeeded, rows.size());
@@ -229,7 +227,7 @@ public:
             {
                 RowComponent* newRow = new RowComponent (owner);
                 rows.add (newRow);
-                content.addAndMakeVisible (newRow);
+                getViewedComponent()->addAndMakeVisible (newRow);
             }
 
             firstIndex = y / rowH;
@@ -249,10 +247,10 @@ public:
         }
 
         if (owner.headerComponent != nullptr)
-            owner.headerComponent->setBounds (owner.outlineThickness + content.getX(),
+            owner.headerComponent->setBounds (owner.outlineThickness + getViewedComponent()->getX(),
                                               owner.outlineThickness,
                                               jmax (owner.getWidth() - owner.outlineThickness * 2,
-                                                    content.getWidth()),
+                                                    getViewedComponent()->getWidth()),
                                               owner.headerComponent->getHeight());
     }
 

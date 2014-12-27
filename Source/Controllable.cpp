@@ -37,6 +37,14 @@ void Controllable::setVal(double val) {
         value = val;
     }
 }
+void Controllable::setSampleRate(int rate) {
+    sampleRate = rate;
+}
+
+void Controllable::setValueBuffer(double valueBuffer[], int numSamples) {
+    
+}
+
 
 double Controllable::getMax()
 {

@@ -39,7 +39,6 @@ namespace juce
 #include "messages/juce_NotificationType.h"
 #include "messages/juce_ApplicationBase.h"
 #include "messages/juce_Initialisation.h"
-#include "messages/juce_MountedVolumeListChangeDetector.h"
 #include "broadcasters/juce_ListenerList.h"
 #include "broadcasters/juce_ActionBroadcaster.h"
 #include "broadcasters/juce_ActionListener.h"

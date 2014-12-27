@@ -112,7 +112,3 @@ void WebBrowserComponent::visibilityChanged()
 {
     checkWindowAssociation();
 }
-
-void WebBrowserComponent::focusGained (FocusChangeType)
-{
-}

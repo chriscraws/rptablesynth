@@ -67,7 +67,7 @@ public:
         if (paramHasChanged)
         {
             refresh();
-            startTimerHz (50);
+            startTimer (1000 / 50);
         }
         else
         {

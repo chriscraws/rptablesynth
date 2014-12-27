@@ -110,13 +110,12 @@ public:
 
 private:
     //==============================================================================
-    Point<float> lastMousePos;
-    Component* lastComponentUnderMouse;
-    String tipShowing, lastTipUnderMouse;
     int millisecondsBeforeTipAppears;
+    Point<float> lastMousePos;
     int mouseClicks, mouseWheelMoves;
     unsigned int lastCompChangeTime, lastHideTime;
-    bool reentrant;
+    Component* lastComponentUnderMouse;
+    String tipShowing, lastTipUnderMouse;
 
     void paint (Graphics&) override;
     void mouseEnter (const MouseEvent&) override;

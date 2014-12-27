@@ -50,11 +50,6 @@ void SynthesiserVoice::setCurrentPlaybackSampleRate (const double newRate)
     currentSampleRate = newRate;
 }
 
-bool SynthesiserVoice::isVoiceActive() const
-{
-    return getCurrentlyPlayingNote() >= 0;
-}
-
 void SynthesiserVoice::clearCurrentNote()
 {
     currentlyPlayingNote = -1;
@@ -431,7 +426,7 @@ SynthesiserVoice* Synthesiser::findFreeVoice (SynthesiserSound* soundToPlay,
     {
         SynthesiserVoice* const voice = voices.getUnchecked (i);
 
-        if ((! voice->isVoiceActive()) && voice->canPlaySound (soundToPlay))
+        if (voice->getCurrentlyPlayingNote() < 0  && voice->canPlaySound (soundToPlay))
             return voice;
     }
 

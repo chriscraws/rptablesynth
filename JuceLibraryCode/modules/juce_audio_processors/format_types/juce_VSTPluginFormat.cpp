@@ -1013,12 +1013,12 @@ public:
                 if (position.isLooping)
                 {
                     vstHostTime.cycleStartPos = position.ppqLoopStart;
-                    vstHostTime.cycleEndPos   = position.ppqLoopEnd;
-                    vstHostTime.flags |= (kVstCyclePosValid | kVstTransportCycleActive);
+                    vstHostTime.cycleEndPos = position.ppqLoopEnd;
+                    vstHostTime.flags |= kVstCyclePosValid;
                 }
                 else
                 {
-                    vstHostTime.flags &= ~(kVstCyclePosValid | kVstTransportCycleActive);
+                    vstHostTime.flags &= ~kVstCyclePosValid;
                 }
             }
 

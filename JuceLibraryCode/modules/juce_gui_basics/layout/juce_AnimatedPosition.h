@@ -94,7 +94,7 @@ public:
     */
     void endDrag()
     {
-        startTimerHz (60);
+        startTimer (1000 / 60);
     }
 
     /** Called outside of a drag operation to cause a nudge in the specified direction.
@@ -102,7 +102,7 @@ public:
     */
     void nudge (double deltaFromCurrentPosition)
     {
-        startTimerHz (10);
+        startTimer (100);
         moveTo (position + deltaFromCurrentPosition);
     }
 
@@ -197,7 +197,7 @@ private:
         if (behaviour.isStopped (newPos))
             stopTimer();
         else
-            startTimerHz (60);
+            startTimer (1000 / 60);
 
         setPositionAndSendChange (newPos);
     }

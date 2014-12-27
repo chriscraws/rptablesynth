@@ -125,12 +125,11 @@ class OpenGLTexture;
 class OpenGLFrameBuffer;
 class OpenGLShaderProgram;
 
-#include "geometry/juce_Quaternion.h"
-#include "geometry/juce_Matrix3D.h"
-#include "geometry/juce_Vector3D.h"
-#include "geometry/juce_Draggable3DOrientation.h"
 #include "native/juce_MissingGLDefinitions.h"
 #include "opengl/juce_OpenGLHelpers.h"
+#include "opengl/juce_Quaternion.h"
+#include "opengl/juce_Matrix3D.h"
+#include "opengl/juce_Draggable3DOrientation.h"
 #include "opengl/juce_OpenGLPixelFormat.h"
 #include "native/juce_OpenGLExtensions.h"
 #include "opengl/juce_OpenGLRenderer.h"
@@ -142,7 +141,7 @@ class OpenGLShaderProgram;
 #include "opengl/juce_OpenGLRenderer.h"
 #include "opengl/juce_OpenGLShaderProgram.h"
 #include "opengl/juce_OpenGLTexture.h"
-#include "utils/juce_OpenGLAppComponent.h"
+#include "opengl/juce_Vector3D.h"
 
 }
 

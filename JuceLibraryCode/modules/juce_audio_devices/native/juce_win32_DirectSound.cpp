@@ -1255,7 +1255,7 @@ private:
     DSoundDeviceList deviceList;
     bool hasScanned;
 
-    void systemDeviceChanged() override
+    void systemDeviceChanged()
     {
         DSoundDeviceList newList;
         newList.scan();

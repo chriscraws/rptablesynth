@@ -25,7 +25,9 @@
 class ComponentAnimator::AnimationTask
 {
 public:
-    AnimationTask (Component* c) noexcept  : component (c) {}
+    AnimationTask (Component* const comp) noexcept  : component (comp)
+    {
+    }
 
     void reset (const Rectangle<int>& finalBounds,
                 float finalAlpha,
@@ -63,8 +65,8 @@ public:
 
     bool useTimeslice (const int elapsed)
     {
-        if (Component* const c = proxy != nullptr ? static_cast<Component*> (proxy)
-                                                  : static_cast<Component*> (component))
+        if (Component* const c = proxy != nullptr ? static_cast <Component*> (proxy)
+                                                  : static_cast <Component*> (component))
         {
             msElapsed += elapsed;
             double newProgress = msElapsed / (double) msTotal;
@@ -147,10 +149,7 @@ public:
             else
                 jassertfalse; // seem to be trying to animate a component that's not visible..
 
-            const float scale = (float) Desktop::getInstance().getDisplays()
-                                            .getDisplayContaining (getScreenBounds().getCentre()).scale;
-
-            image = c.createComponentSnapshot (c.getLocalBounds(), false, scale);
+            image = c.createComponentSnapshot (c.getLocalBounds(), false, getDesktopScaleFactor());
 
             setVisible (true);
             toBehind (&c);
@@ -190,8 +189,14 @@ private:
 };
 
 //==============================================================================
-ComponentAnimator::ComponentAnimator()  : lastTime (0) {}
-ComponentAnimator::~ComponentAnimator() {}
+ComponentAnimator::ComponentAnimator()
+    : lastTime (0)
+{
+}
+
+ComponentAnimator::~ComponentAnimator()
+{
+}
 
 //==============================================================================
 ComponentAnimator::AnimationTask* ComponentAnimator::findTaskFor (Component* const component) const noexcept
@@ -231,7 +236,7 @@ void ComponentAnimator::animateComponent (Component* const component,
         if (! isTimerRunning())
         {
             lastTime = Time::getMillisecondCounter();
-            startTimerHz (50);
+            startTimer (1000 / 50);
         }
     }
 }

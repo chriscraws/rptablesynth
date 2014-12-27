@@ -248,7 +248,9 @@ public:
     void setSkewFactorFromMidPoint (double sliderValueToShowAtMidPoint);
 
     /** Returns the current skew factor.
+
         See setSkewFactor for more info.
+
         @see setSkewFactor, setSkewFactorFromMidPoint
     */
     double getSkewFactor() const noexcept;
@@ -680,13 +682,6 @@ public:
     /** Returns the suffix that was set by setTextValueSuffix(). */
     String getTextValueSuffix() const;
 
-    /** Returns the best number of decimal places to use when displaying this
-        slider's value.
-        It calculates the fewest decimal places needed to represent numbers with
-        the slider's interval setting.
-    */
-    int getNumDecimalPlacesToDisplay() const noexcept;
-
     //==============================================================================
     /** Allows a user-defined mapping of distance along the slider to its value.
 
@@ -836,6 +831,7 @@ public:
        #endif
     };
 
+protected:
     //==============================================================================
     /** @internal */
     void paint (Graphics&) override;
@@ -861,6 +857,11 @@ public:
     void focusOfChildComponentChanged (FocusChangeType) override;
     /** @internal */
     void colourChanged() override;
+
+    /** Returns the best number of decimal places to use when displaying numbers.
+        This is calculated from the slider's interval setting.
+    */
+    int getNumDecimalPlacesToDisplay() const noexcept;
 
 private:
     //==============================================================================
