@@ -17,8 +17,15 @@ Controllable::Controllable(String, double min, double max)
 
 Controllable::~Controllable()
 {
+    // delete the vectors upon deconstruction
+    // the lines underneath instantiate blank vectors and swap them with
+    // both valueBuffer and modifierBuffer, effectively freeing their memory.
+    std::vector<double>().swap(valueBuffer);
+    std::vector<double>().swap(modifierBuffer);
+
 }
 
+// Controllable setters
 void Controllable::setMax(double max) {
     maximum = max;
 }
@@ -37,15 +44,27 @@ void Controllable::setVal(double val) {
         value = val;
     }
 }
+// The Sample Rate of the controllable is set from the SoundChain
 void Controllable::setSampleRate(int rate) {
     sampleRate = rate;
 }
 
-void Controllable::setValueBuffer(double valueBuffer[], int numSamples) {
-    
+// set the valueBuffer instance variable of the Controllable class by copying
+// over <numSamples> entries in the <valueBuffer> argument passed through the function.
+void Controllable::setValueBuffer(double buff[], int numSamples) {
+    for (int i = 0; i < numSamples; i++) {
+        valueBuffer[i] = buff[i];
+    }
 }
 
 
+// Keep track of the buffer's length
+void Controllable::setBufferLength(int length) {
+    bufferLength = length;
+}
+
+
+// Controllable getters
 double Controllable::getMax()
 {
     return maximum;
@@ -56,7 +75,32 @@ double Controllable::getMin()
     return minimum;
 }
 
-double Controllable::getVal()
+// get the non-base value of the Controllable
+double Controllable::getVal(int BufferIndex)
 {
     return value;
 }
+
+// get the value of the knob
+double Controllable::getBaseVal() {
+    return baseVal;
+}
+
+
+// ModifierBuffer is set from the envelopes. Double array <mod> serves as the buffer that
+// is being inputted into the ModifierBuffer, and int <length> is the number of doubles
+// read into the ModifierBuffer.
+void Controllable::updateModifierBuffer(double mod[], int length) {
+    // no need to assure that modifierBuffer is of appropriate size because vectors
+    // dynamically expand
+    for (int i = 0; i < length; i++) {
+        modifierBuffer[i] = mod[i];
+    }
+    
+}
+
+// Clear the modifierBuffer instance variable of the Controllable
+void Controllable::clearModifierBuffer() {
+    modifierBuffer.clear();
+}
+
