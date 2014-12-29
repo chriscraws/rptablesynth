@@ -18,6 +18,7 @@ public:
     void setId(String id);
     void setOutputBuffer(AudioSampleBuffer& outputBuffer, int startSample, int numSamples);
     void setSampleRate(int rate);
+    int getSampleRate();
 
     String getId();
     

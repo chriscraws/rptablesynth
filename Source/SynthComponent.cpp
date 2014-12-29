@@ -22,6 +22,10 @@ void SynthComponent::setSampleRate(int rate) {
     sampleRate = rate;
 }
 
+int SynthComponent::getSampleRate() {
+    return sampleRate;
+}
+
 void SynthComponent::setOutputBuffer(AudioSampleBuffer& outputBuffer, int startSample, int numSamples) {
     
 }

@@ -263,6 +263,12 @@ public:
     */
     virtual void showPopup();
 
+    /** Hides the combo box's popup list, if it's currently visible. */
+    void hidePopup();
+
+    /** Adds the items in this ComboBox to the given menu. */
+    virtual void addItemsToMenu (PopupMenu&) const;
+
     //==============================================================================
     /**
         A class for receiving events from a ComboBox.
@@ -423,7 +429,7 @@ private:
     int lastCurrentId;
     bool isButtonDown, separatorPending, menuActive, scrollWheelEnabled;
     float mouseWheelAccumulator;
-    ListenerList <Listener> listeners;
+    ListenerList<Listener> listeners;
     ScopedPointer<Label> label;
     String textWhenNothingSelected, noChoicesMessage;
 
@@ -432,7 +438,7 @@ private:
     bool selectIfEnabled (int index);
     bool nudgeSelectedItem (int delta);
     void sendChange (NotificationType);
-    static void popupMenuFinishedCallback (int, ComboBox*);
+    void showPopupIfNotActive();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ComboBox)
 };
