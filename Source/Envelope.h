@@ -8,19 +8,20 @@
 
 #ifndef __StarterSynth__Envelope__
 #define __StarterSynth__Envelope__
+#include "Controllable.h"
 
-class Envelope
+class Envelope: public Controllable
 {
 public:
-    Envelope();
     
-    double getVal();
+    // as Envelope is a subclass of the Controllable superclass
+    Envelope(String tag, double min, double max, String envId);
     
-    void setVal(double val);
+    String getEnvelopeId();
+
     
 private:
-    double value;
-    
+    String envelopeIdentifier;
 };
 
 

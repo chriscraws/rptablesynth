@@ -8,16 +8,15 @@
 
 #include "Mixer.h"
 
-Mixer::Mixer()
-{
-    value = 0;
+Mixer::Mixer(String tag, double min, double max, String mixerId):
+Controllable(tag, min, max) {
+    // calls the Controllable parent class with the tag, min and max
+    // Envelope sets the identifier, which is some string that can be used to
+    // differentiate envelopes
+    mixerIdentifier = mixerId;
+    
 }
 
-void Mixer::setVal(double val) {
-    value = val;
-}
-
-double Mixer::getVal()
-{
-    return value;
+String Mixer::getFilterId() {
+    return mixerIdentifier;
 }

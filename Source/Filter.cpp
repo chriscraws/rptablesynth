@@ -8,16 +8,15 @@
 
 #include "Filter.h"
 
-Filter::Filter()
-{
-    value = 0;
+Filter::Filter(String tag, double min, double max, String filId):
+Controllable(tag, min, max) {
+    // calls the Controllable parent class with the tag, min and max
+    // Envelope sets the identifier, which is some string that can be used to
+    // differentiate envelopes
+    filterIdentifier = filId;
+    
 }
 
-void Filter::setVal(double val) {
-    value = val;
-}
-
-double Filter::getVal()
-{
-    return value;
+String Filter::getFilterId() {
+    return filterIdentifier;
 }

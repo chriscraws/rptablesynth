@@ -8,18 +8,18 @@
 
 #ifndef __StarterSynth__Filter__
 #define __StarterSynth__Filter__
+#include "Controllable.h"
 
-class Filter
+class Filter : public Controllable
 {
 public:
-    Filter();
     
-    double getVal();
+    Filter(String tag, double min, double max, String filId);
     
-    void setVal(double val);
+    String getFilterId();
     
 private:
-    double value;
+    String filterIdentifier;
 
 };
 

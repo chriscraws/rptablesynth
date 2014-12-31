@@ -8,18 +8,18 @@
 
 #ifndef __StarterSynth__Mixer__
 #define __StarterSynth__Mixer__
+#include "Controllable.h"
 
-class Mixer
+class Mixer : public Controllable
 {
 public:
-    Mixer();
+   
+    Mixer(String tag, double min, double max, String mixerId);
     
-    double getVal();
-    
-    void setVal(double val);
+    String getFilterId();
     
 private:
-    double value;
+    String mixerIdentifier;
     
 };
 
