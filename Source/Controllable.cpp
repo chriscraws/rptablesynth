@@ -8,11 +8,12 @@
 
 #include "Controllable.h"
 
-Controllable::Controllable(String tag, double min, double max)
+Controllable::Controllable(String tag1, double min, double max)
 {
     minimum = min;
     maximum = max;
     value = 0;
+    tag = tag;
 }
 
 Controllable::~Controllable()
@@ -70,6 +71,10 @@ void Controllable::setValueBuffer(double buff[], int numSamples) {
 // Keep track of the buffer's length
 void Controllable::setBufferLength(int length) {
     bufferLength = length;
+}
+
+String Controllable::getTag() {
+    return tag;
 }
 
 
