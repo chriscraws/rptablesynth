@@ -8,9 +8,9 @@
 
 #ifndef __StarterSynth__Envelope__
 #define __StarterSynth__Envelope__
-#include "Controllable.h"
+#include "SynthComponent.h"
 
-class Envelope: public Controllable
+class Envelope: public SynthComponent
 {
 public:
     

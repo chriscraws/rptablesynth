@@ -8,8 +8,7 @@
 
 #include "Filter.h"
 
-Filter::Filter(String tag, double min, double max, String filId):
-Controllable(tag, min, max) {
+Filter::Filter(String tag, double min, double max, String filId) {
     // calls the Controllable parent class with the tag, min and max
     // Envelope sets the identifier, which is some string that can be used to
     // differentiate envelopes

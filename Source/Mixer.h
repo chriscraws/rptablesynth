@@ -8,9 +8,9 @@
 
 #ifndef __StarterSynth__Mixer__
 #define __StarterSynth__Mixer__
-#include "Controllable.h"
+#include "SynthComponent.h"
 
-class Mixer : public Controllable
+class Mixer : public SynthComponent
 {
 public:
    

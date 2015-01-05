@@ -8,8 +8,7 @@
 
 #include "Envelope.h"
 
-Envelope::Envelope(String tag, double min, double max, String envId):
-Controllable(tag, min, max) {
+Envelope::Envelope(String tag, double min, double max, String envId) {
     // calls the Controllable parent class with the tag, min and max
     // Envelope sets the identifier, which is some string that can be used to
     // differentiate envelopes

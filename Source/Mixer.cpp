@@ -8,8 +8,7 @@
 
 #include "Mixer.h"
 
-Mixer::Mixer(String tag, double min, double max, String mixerId):
-Controllable(tag, min, max) {
+Mixer::Mixer(String tag, double min, double max, String mixerId) {
     // calls the Controllable parent class with the tag, min and max
     // Envelope sets the identifier, which is some string that can be used to
     // differentiate envelopes

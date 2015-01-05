@@ -8,9 +8,9 @@
 
 #ifndef __StarterSynth__Filter__
 #define __StarterSynth__Filter__
-#include "Controllable.h"
+#include "SynthComponent.h"
 
-class Filter : public Controllable
+class Filter : public SynthComponent
 {
 public:
     
