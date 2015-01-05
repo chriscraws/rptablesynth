@@ -14,15 +14,17 @@
 class SynthComponent
 {
 public:
+    virtual ~SynthComponent();
     
     void setId(String id);
-    void setOutputBuffer(AudioSampleBuffer& outputBuffer, int startSample, int numSamples);
     void setSampleRate(int rate);
     int getSampleRate();
 
     String getId();
     
-    void processBuffer(AudioSampleBuffer* inputBuffer, int startSample, int numSamples);
+    virtual int getOutputCount();
+    virtual SynthComponent getOutput(int index);
+    virtual void renderNextBlock(int startSample, int numSamples);
     
 private:
     String componentId;
