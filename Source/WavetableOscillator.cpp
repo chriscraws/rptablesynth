@@ -10,7 +10,11 @@
 
 #include "WavetableOscillator.h"
 
-WavetableOscillator::WavetableOscillator() : level("level", 0, 1, 1) {}
+WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
+                                                wavetableSampleRate(44100),
+                                                level("level", 0, 1, 1),
+                                                position("position", 0, 127, 0),
+                                                wavetable(128, std::vector<float>(401)) {}
 
 int WavetableOscillator::getOutputCount() {
     return 1;
@@ -29,16 +33,11 @@ void WavetableOscillator::setOutput(SynthComponent *output) {
 }
 
 void WavetableOscillator::startNote(int miniNoteNumber, int currentPitchWheelPosition) {
-    currentAngle = 0.0;
     
-    double cyclesPerSecond = MidiMessage::getMidiNoteInHertz(miniNoteNumber);
-    double cyclesPerSample = cyclesPerSecond / getSampleRate();
-    
-    angleDelta = cyclesPerSample * 2.0 * double_Pi;
 }
 
 void WavetableOscillator::stop() {
-    angleDelta = 0;
+    
 }
 
 void WavetableOscillator::pitchWheelMoved(int newValue) {
@@ -48,7 +47,9 @@ void WavetableOscillator::pitchWheelMoved(int newValue) {
 Controllable* WavetableOscillator::getControllable(String tag) {
     if (tag.equalsIgnoreCase("level")) {
         return &level;
-    } else {
+    } else if (tag.equalsIgnoreCase("position")) {
+        return &position;
+    } else{
         return nullptr;
     }
 }
@@ -56,23 +57,6 @@ Controllable* WavetableOscillator::getControllable(String tag) {
 
 void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
 {
-    if (angleDelta != 0.0)
-    {
-        int s = 0;
-        while (s < numSamples) {
-            const float currentSample = (float) (sin (currentAngle) * level.getBaseVal());
-            
-            for (int i = (output->getInputBuffer(0))->getNumChannels(); --i >= 0;) {
-                (output->getInputBuffer(0))->setSample (i, s + startSample, currentSample);
-            }
-            
-            currentAngle += angleDelta;
-            s++;
-        }
-        // start next items in chain
-        output->setSampleRate(getSampleRate());
-        output->renderNextBlock(startSample, numSamples);
-    }
     
     
 }

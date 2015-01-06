@@ -13,6 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Oscillator.h"
+#include <vector>
 
 class WavetableOscillator : public Oscillator
 {
@@ -34,12 +35,15 @@ public:
     Controllable* getControllable(String tag) override;
     
 private:
-    double currentAngle;
-    double angleDelta;
-    Controllable level;
+    double baseHz;
+    double wavetableSampleRate;
     double tailOff;
+    Controllable level;
+    Controllable position;
+    
     SynthComponent* output;
     
+    std::vector<std::vector<float>> wavetable;
 };
 
 
