@@ -12,7 +12,7 @@
 #define MODVOICE_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "AnalogOscillator.h"
+#include "Oscillator.h"
 #include "StereoOut.h"
 
 class ModVoice : public SynthesiserVoice

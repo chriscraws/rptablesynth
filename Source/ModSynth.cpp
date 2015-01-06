@@ -7,6 +7,7 @@
 //
 
 #include "ModSynth.h"
+#include "WavetableOscillator.h"
 
 struct DefaultSound : public SynthesiserSound
 {
@@ -19,7 +20,7 @@ struct DefaultSound : public SynthesiserSound
 ModSynth::ModSynth(MidiKeyboardState& state) : keyboardState(state)
 {
     // Construct chain
-    AnalogOscillator* oscillator = new AnalogOscillator();
+    WavetableOscillator* oscillator = new WavetableOscillator();
     StereoOut* stereoOut = new StereoOut();
     ModVoice* mainVoice = new ModVoice();
     
