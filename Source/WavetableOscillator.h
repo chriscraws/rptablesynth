@@ -37,9 +37,13 @@ public:
 private:
     double baseHz;
     double wavetableSampleRate;
-    double tailOff;
+    
+    double angle;
+    double delta;
+    
     Controllable level;
     Controllable position;
+    Controllable phase;
     
     SynthComponent* output;
     
