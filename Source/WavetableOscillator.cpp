@@ -120,9 +120,6 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
         float last, next, sample;
         int lastIndex, nextIndex;
         
-        //low pass filter variables
-        
-        
         while (n < numSamples) {
             // get last sample in wavetable
             lastIndex = (int) angle;
@@ -139,9 +136,6 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
             // linerarly weighted sample (better anti-aliasing can be implemented)
             sample = ((delta/((float)(nextIndex - lastIndex))) * next) +
                 ((1.0 - (delta/((float)(nextIndex - lastIndex)))) * last);
-            
-            // use low pass filter http://www.musicdsp.org/showone.php?id=23
-            
             
             
             sample *= level.getBaseVal();
