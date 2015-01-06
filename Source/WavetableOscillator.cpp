@@ -23,28 +23,20 @@ WavetableOscillator::WavetableOscillator() :
     //const int MAX_TOKENS_PER_LINE = 20;
     //const char* const DELIMITER = " ";
                                                     
-    std::ifstream fsA;
-    std::ifstream fsB;
-    fsA.open("A.txt");
-    fsB.open("B.txt");
-    AudioSampleBuffer bufferA;
+    File fsA("A.txt");
+    File fsB("B.txt");
+    AudioSampleBuffer bufferA, bufferB;
     bufferA = AudioSampleBuffer();
-    AudioSampleBuffer bufferB;
     bufferB = AudioSampleBuffer();
     
-    // for traversing each float of the first waveform
-    int i = 0;
     // traverse the entire first file
-    while (!fsA.eof()) {
-        
-        // read an entire line into memory
-        char buf[MAX_CHARS_PER_LINE];
-        fsA.getline(buf, MAX_CHARS_PER_LINE);
-        
-        String lineString = String(buf);
-        wavetable[0][i++] = lineString.getFloatValue();
-        
+    StringArray destLines;
+    fsA.readLines(destLines);
+    int i = 0;
+    for (; i < destLines.strings.size(); i++) {
+        wavetable[0][i] = destLines.strings[i].getFloatValue();
     }
+    
     
     // make sure that up to 401 is filed, continue where <i> left off from while loop
     for (; i < WAVEFORM_SAMPLESIZE; i++) {
@@ -53,26 +45,20 @@ WavetableOscillator::WavetableOscillator() :
     
     // for traversing each float of the waveform
     int j = 0;
-    int wavetable_depth = wavetable.size();
+    int wavetable_depth = wavetable.size()-1;
+    
     // traverse the entire second file
-    while (!fsB.eof()) {
-
-        // read an entire line into memory
-        char buf[MAX_CHARS_PER_LINE];
-        fsB.getline(buf, MAX_CHARS_PER_LINE);
-
-        String lineString = String(buf);
-        wavetable[wavetable_depth][j++] = lineString.getFloatValue();
-
+    StringArray destLines2;
+    fsA.readLines(destLines2);
+    
+    for (; j < destLines2.strings.size(); j++) {
+        wavetable[wavetable_depth][j] = destLines2.strings[j].getFloatValue();
     }
     
     // make sure that up to 401 is filed, continue where <i> left off from while loop
     for (; j < WAVEFORM_SAMPLESIZE; j++) {
         wavetable[wavetable_depth][j] = 0.0;
     }
-
-    fsA.close();
-    fsB.close();
     
     std::cout << "We made it";
     
