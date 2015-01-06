@@ -21,7 +21,7 @@ public:
     WavetableOscillator();
     
     void startNote(int miniNoteNumber, int currentPitchWheelPosition) override;
-    virtual void stop() override;
+    void stop() override;
     
     void pitchWheelMoved(int newValue) override;
     
