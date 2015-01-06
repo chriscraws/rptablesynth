@@ -22,7 +22,7 @@ class Oscillator : public SynthComponent {
 public:
     virtual ~Oscillator();
     
-    virtual void startNote(int miniNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition);
+    virtual void startNote(int midiNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition);
     
     virtual void stopNote(float velocity, bool allowTailOff);
     

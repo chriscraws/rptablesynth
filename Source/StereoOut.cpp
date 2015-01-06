@@ -8,12 +8,8 @@
 
 #include "StereoOut.h"
 
-void StereoOut::setOuputBuffer(AudioSampleBuffer &outputBuffer) {
+void StereoOut::setOuputBuffer(AudioSampleBuffer *outputBuffer) {
     this->outputBuffer = outputBuffer;
-}
-
-void StereoOut::setInputBuffer(AudioSampleBuffer &inputBuffer) {
-    this->inputBuffer = inputBuffer;
 }
 
 int StereoOut::getOutputCount() {
@@ -24,12 +20,16 @@ int StereoOut::getInputCount() {
     return 1;
 }
 
+AudioSampleBuffer* StereoOut::getInputBuffer(int index) {
+    return &inputBuffer;
+}
+
 SynthComponent* StereoOut::getOutput(int index) {
     return nullptr;
 }
 
 void StereoOut::renderNextBlock(int startSample, int numSamples) {
-    for (int i = 0; i < outputBuffer.getNumChannels(); i++) {
-        outputBuffer.copyFrom(i, startSample, inputBuffer, i, startSample, numSamples);
+    for (int i = 0; i < outputBuffer->getNumChannels(); i++) {
+        outputBuffer->copyFrom(i, startSample, inputBuffer, i, startSample, numSamples);
     }
 }

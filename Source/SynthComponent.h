@@ -24,6 +24,7 @@ public:
     
     virtual int getOutputCount();
     virtual int getInputCount();
+    virtual AudioSampleBuffer* getInputBuffer(int index);
     virtual SynthComponent* getOutput(int index);
     virtual void renderNextBlock(int startSample, int numSamples);
     

@@ -12,14 +12,18 @@
 #define MODVOICE_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AnalogOscillator.h"
+#include "StereoOut.h"
 
 class ModVoice : public SynthesiserVoice
 {
 public:
+    void setOscillator(Oscillator* oscillator);
+    void setStereoOutput(StereoOut* stereoOut);
     
     bool canPlaySound(SynthesiserSound* sound) override;
     
-    void startNote(int miniNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition) override;
+    void startNote(int midiNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition) override;
     
     void stopNote(float velocity, bool allowTailOff) override;
     
@@ -34,6 +38,8 @@ private:
     double angleDelta;
     double level;
     double tailOff;
+    Oscillator* oscillator;
+    StereoOut* stereoOut;
 };
 
 

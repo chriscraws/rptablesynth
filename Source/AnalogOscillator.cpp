@@ -10,6 +10,23 @@
 
 #include "AnalogOscillator.h"
 
+int AnalogOscillator::getOutputCount() {
+    return 1;
+}
+
+int AnalogOscillator::getInputCount() {
+    return 0;
+}
+
+SynthComponent* AnalogOscillator::getOutput(int index) {
+    return output;
+}
+
+void AnalogOscillator::setOutput(SynthComponent *output, int index) {
+    this->output = output;
+    outputBuffer = output->getInputBuffer(index);
+}
+
 void AnalogOscillator::startNote(int miniNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition) {
     currentAngle = 0.0;
     level = velocity * 0.15;
@@ -35,7 +52,6 @@ void AnalogOscillator::stopNote(float velocity, bool allowTailOff) {
     {
         // we're being told to stop playing immediately, so reset everything..
         
-        clearCurrentNote();
         angleDelta = 0.0;
     }
 }
@@ -45,7 +61,6 @@ void AnalogOscillator::pitchWheelMoved(int newValue) {
 }
 
 
-// Incomplete
 void AnalogOscillator::renderNextBlock(int startSample, int numSamples)
 {
     if (angleDelta != 0.0)
@@ -56,8 +71,8 @@ void AnalogOscillator::renderNextBlock(int startSample, int numSamples)
             {
                 const float currentSample = (float) (sin (currentAngle) * level * tailOff);
                 
-                for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-                    outputBuffer.addSample (i, startSample, currentSample);
+                for (int i = outputBuffer->getNumChannels(); --i >= 0;)
+                    outputBuffer->addSample (i, startSample, currentSample);
                 
                 currentAngle += angleDelta;
                 ++startSample;
@@ -78,12 +93,15 @@ void AnalogOscillator::renderNextBlock(int startSample, int numSamples)
             {
                 const float currentSample = (float) (sin (currentAngle) * level);
                 
-                for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-                    outputBuffer.addSample (i, startSample, currentSample);
+                for (int i = outputBuffer->getNumChannels(); --i >= 0;)
+                    outputBuffer->addSample (i, startSample, currentSample);
                 
                 currentAngle += angleDelta;
                 ++startSample;
             }
         }
     }
+    
+    // start next items in chain
+    output->renderNextBlock(startSample, numSamples);
 }

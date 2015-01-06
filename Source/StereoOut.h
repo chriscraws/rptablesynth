@@ -13,19 +13,18 @@
 class StereoOut : public SynthComponent
 {
 public:
-    void setOuputBuffer(AudioSampleBuffer& outputBuffer);
-    
-    void setInputBuffer(AudioSampleBuffer& inputBuffer);
+    void setOuputBuffer(AudioSampleBuffer* outputBuffer);
     
     int getOutputCount() override;
     int getInputCount() override;
+    AudioSampleBuffer* getInputBuffer(int index) override;
     SynthComponent* getOutput(int index) override;
     void renderNextBlock(int startSample, int numSamples) override;
     
     
 private:
-    AudioSampleBuffer& outputBuffer;
-    AudioSampleBuffer& inputBuffer;
+    AudioSampleBuffer* outputBuffer;
+    AudioSampleBuffer inputBuffer;
 };
 
 

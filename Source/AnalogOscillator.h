@@ -24,14 +24,20 @@ public:
     
     void pitchWheelMoved(int newValue) override;
     
-    void renderNextBlock(int startSample, int numSamples);
+    void setOutput(SynthComponent* output, int index);
+    
+    int getOutputCount() override;
+    int getInputCount() override;
+    SynthComponent* getOutput(int index) override;
+    void renderNextBlock(int startSample, int numSamples) override;
     
 private:
     double currentAngle;
     double angleDelta;
     double level;
     double tailOff;
-    AudioSampleBuffer outputBuffer;
+    SynthComponent* output;
+    AudioSampleBuffer* outputBuffer;
     
 };
 
