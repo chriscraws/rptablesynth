@@ -17,27 +17,28 @@
 class AnalogOscillator : public Oscillator
 {
 public:
+    AnalogOscillator();
     
-    void startNote(int miniNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition) override;
-    
-    void stopNote(float velocity, bool allowTailOff) override;
+    void startNote(int miniNoteNumber, int currentPitchWheelPosition) override;
+    virtual void stop() override;
     
     void pitchWheelMoved(int newValue) override;
     
-    void setOutput(SynthComponent* output, int index);
+    void setOutput(SynthComponent* output);
     
     int getOutputCount() override;
     int getInputCount() override;
     SynthComponent* getOutput(int index) override;
     void renderNextBlock(int startSample, int numSamples) override;
     
+    Controllable* getControllable(String tag) override;
+    
 private:
     double currentAngle;
     double angleDelta;
-    double level;
+    Controllable level;
     double tailOff;
     SynthComponent* output;
-    AudioSampleBuffer* outputBuffer;
     
 };
 

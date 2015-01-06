@@ -10,7 +10,8 @@
 
 void StereoOut::setOuputBuffer(AudioSampleBuffer *outputBuffer) {
     this->outputBuffer = outputBuffer;
-    inputBuffer.setSize(outputBuffer->getNumChannels(), outputBuffer->getNumSamples());
+    inputBuffer = new AudioSampleBuffer(outputBuffer->getNumChannels(), outputBuffer->getNumSamples());
+    inputBuffer->clear();
 }
 
 int StereoOut::getOutputCount() {
@@ -22,7 +23,7 @@ int StereoOut::getInputCount() {
 }
 
 AudioSampleBuffer* StereoOut::getInputBuffer(int index) {
-    return &inputBuffer;
+    return inputBuffer;
 }
 
 SynthComponent* StereoOut::getOutput(int index) {
@@ -31,6 +32,6 @@ SynthComponent* StereoOut::getOutput(int index) {
 
 void StereoOut::renderNextBlock(int startSample, int numSamples) {
     for (int i = 0; i < outputBuffer->getNumChannels(); i++) {
-        outputBuffer->copyFrom(i, startSample, inputBuffer, i, startSample, numSamples);
+        outputBuffer->copyFrom(i, startSample, *inputBuffer, i, startSample, numSamples);
     }
 }

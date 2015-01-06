@@ -16,8 +16,8 @@
 
 Oscillator::~Oscillator() {}
 
-void Oscillator::startNote(int miniNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition) {}
+void Oscillator::startNote(int miniNoteNumber, int currentPitchWheelPosition) {}
 
-void Oscillator::stopNote(float velocity, bool allowTailOff) {}
+void Oscillator::stop() {}
 
 void Oscillator::pitchWheelMoved(int newValue) {}

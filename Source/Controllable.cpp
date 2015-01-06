@@ -8,11 +8,11 @@
 
 #include "Controllable.h"
 
-Controllable::Controllable(String tag1, double min, double max)
+Controllable::Controllable(String tag1, double min, double max, double val)
 {
     minimum = min;
     maximum = max;
-    value = 0;
+    value = val;
     tag = tag;
 }
 
@@ -97,7 +97,7 @@ double Controllable::getVal(int BufferIndex)
 
 // get the value of the knob
 double Controllable::getBaseVal() {
-    return baseVal;
+    return value;
 }
 
 

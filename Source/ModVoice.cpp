@@ -25,12 +25,14 @@ bool ModVoice::canPlaySound(SynthesiserSound* sound)
 
 void ModVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition)
 {
-    oscillator->startNote(midiNoteNumber, velocity, nullptr, currentPitchWheelPosition);
+    oscillator->startNote(midiNoteNumber, currentPitchWheelPosition);
+    oscillator->getControllable("level")->setVal(1.0);
 }
 
 void ModVoice::stopNote(float velocity, bool allowTailOff)
 {
-    oscillator->stopNote(velocity, allowTailOff);
+    oscillator->getControllable("level")->setVal(0.0);
+    //oscillator->stop();
     clearCurrentNote();
 }
 

@@ -33,3 +33,5 @@ void SynthComponent::setSampleRate(double rate) {
 double SynthComponent::getSampleRate() {
     return sampleRate;
 }
+
+Controllable* SynthComponent::getControllable(String tag) {return nullptr;}

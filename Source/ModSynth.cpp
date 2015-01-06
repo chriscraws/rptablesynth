@@ -26,7 +26,7 @@ ModSynth::ModSynth(MidiKeyboardState& state) : keyboardState(state)
     mainVoice->setOscillator(oscillator);
     mainVoice->setStereoOutput(stereoOut);
     
-    oscillator->setOutput(stereoOut, 0);
+    oscillator->setOutput(stereoOut);
     
     
     // add voices

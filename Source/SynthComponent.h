@@ -10,6 +10,7 @@
 #define __StarterSynth__SynthComponent__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Controllable.h"
 
 class SynthComponent
 {
@@ -27,6 +28,7 @@ public:
     virtual AudioSampleBuffer* getInputBuffer(int index);
     virtual SynthComponent* getOutput(int index);
     virtual void renderNextBlock(int startSample, int numSamples);
+    virtual Controllable* getControllable(String tag);
     
 private:
     String componentId;

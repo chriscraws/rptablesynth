@@ -36,10 +36,7 @@ public:
     void setCurrentPlaybackSampleRate(double sampleRate) override;
     
 private:
-    double currentAngle;
-    double angleDelta;
-    double level;
-    double tailOff;
+    bool noteOn;
     Oscillator* oscillator;
     StereoOut* stereoOut;
 };
