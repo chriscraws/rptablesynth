@@ -5,18 +5,16 @@
               jucerVersion="3.1.0" userNotes="https://docs.google.com/a/princeton.edu/document/d/1SdCPHwvLefaPH1YfEDlP7aSBnPXuYt_SKJ5uchtKsz0/edit">
   <MAINGROUP id="stuYrW" name="StarterSynth">
     <GROUP id="{7F1431DB-8D06-B57E-DE8A-9D199B945CB7}" name="Source">
-      <GROUP id="{E31A122A-C7CE-349B-059A-D2B3EEC157BD}" name="SynthComponents">
-        <FILE id="USmls9" name="StereoOut.cpp" compile="1" resource="0" file="Source/StereoOut.cpp"/>
-        <FILE id="qRDo3F" name="StereoOut.h" compile="0" resource="0" file="Source/StereoOut.h"/>
-      </GROUP>
       <GROUP id="{9A840CAD-13AA-064E-6BCD-9A500EF270DA}" name="Oscillators">
-        <FILE id="ySZo70" name="AnalogOscillator.cpp" compile="0" resource="0"
+        <FILE id="ySZo70" name="AnalogOscillator.cpp" compile="1" resource="0"
               file="Source/AnalogOscillator.cpp"/>
         <FILE id="Gf4n8P" name="AnalogOscillator.h" compile="0" resource="0"
               file="Source/AnalogOscillator.h"/>
       </GROUP>
-      <FILE id="bOoXdh" name="SynthChain.cpp" compile="1" resource="0" file="Source/SynthChain.cpp"/>
-      <FILE id="mvsYf0" name="SynthChain.h" compile="0" resource="0" file="Source/SynthChain.h"/>
+      <GROUP id="{E31A122A-C7CE-349B-059A-D2B3EEC157BD}" name="SynthComponents">
+        <FILE id="FRPwAW" name="StereoOut.cpp" compile="1" resource="0" file="Source/StereoOut.cpp"/>
+        <FILE id="CCRAw8" name="StereoOut.h" compile="0" resource="0" file="Source/StereoOut.h"/>
+      </GROUP>
       <FILE id="CCxREH" name="Controllable.cpp" compile="1" resource="0"
             file="Source/Controllable.cpp"/>
       <FILE id="zVVtR5" name="Controllable.h" compile="1" resource="0" file="Source/Controllable.h"/>
@@ -28,7 +26,10 @@
       <FILE id="i8x8Vb" name="ModSynth.h" compile="1" resource="0" file="Source/ModSynth.h"/>
       <FILE id="odOtWe" name="ModVoice.cpp" compile="1" resource="0" file="Source/ModVoice.cpp"/>
       <FILE id="iI64qu" name="ModVoice.h" compile="1" resource="0" file="Source/ModVoice.h"/>
+      <FILE id="vReg0c" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
       <FILE id="w1M2pU" name="Oscillator.h" compile="1" resource="0" file="Source/Oscillator.h"/>
+      <FILE id="bOoXdh" name="SynthChain.cpp" compile="1" resource="0" file="Source/SynthChain.cpp"/>
+      <FILE id="mvsYf0" name="SynthChain.h" compile="0" resource="0" file="Source/SynthChain.h"/>
       <FILE id="EG4jrC" name="SynthComponent.cpp" compile="1" resource="0"
             file="Source/SynthComponent.cpp"/>
       <FILE id="N1xhMa" name="SynthComponent.h" compile="1" resource="0"
