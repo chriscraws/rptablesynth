@@ -6,21 +6,21 @@
 //
 //
 
-#ifndef __StarterSynth__Filter__
+/*#ifndef __StarterSynth__Filter__
 #define __StarterSynth__Filter__
 #include "SynthComponent.h"
 
 class Filter : public SynthComponent
 {
 public:
-    
-    Filter(String tag, double min, double max, String filId);
-    
-    String getFilterId();
+
+    // handle all of the virtal functions set aside in SynthComponent
+    ~Filter() override;
+    int getOutputCount() override;
+    SynthComponent getOutput(int index) override;
+    void renderNextBlock(int startSample, int numSamples) override;
     
 private:
-    String filterIdentifier;
-
 };
 
 

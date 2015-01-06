@@ -6,7 +6,7 @@
 //
 //
 
-#ifndef __StarterSynth__Envelope__
+/*#ifndef __StarterSynth__Envelope__
 #define __StarterSynth__Envelope__
 #include "SynthComponent.h"
 
@@ -14,15 +14,15 @@ class Envelope: public SynthComponent
 {
 public:
     
-    // as Envelope is a subclass of the Controllable superclass
-    Envelope(String tag, double min, double max, String envId);
-    
-    String getEnvelopeId();
-
+    // handle all of the virtal functions set aside in SynthComponent
+    ~Envelope() override;
+    int getOutputCount() override;
+    SynthComponent getOutput(int index) override;
+    void renderNextBlock(int startSample, int numSamples) override;
     
 private:
-    String envelopeIdentifier;
 };
 
 
 #endif /* defined(__StarterSynth__Envelope__) */
+

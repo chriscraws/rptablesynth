@@ -6,18 +6,23 @@
 //
 //
 
-#include "Envelope.h"
+/*#include "Envelope.h"
 
-Envelope::Envelope(String tag, double min, double max, String envId) {
-    // calls the Controllable parent class with the tag, min and max
-    // Envelope sets the identifier, which is some string that can be used to
-    // differentiate envelopes
-    envelopeIdentifier = envId;
+Envelope::~Envelope()
+{
 
 }
 
-String Envelope::getEnvelopeId() {
-    return envelopeIdentifier;
+int Envelope::getOutputCount() {
+    return 0;
 }
 
+SynthComponent Envelope::getOutput(int index) {
+    SynthComponent comp;
+    return comp;
+}
+
+void Envelope::renderNextBlock(int startSample, int numSamples) {
+    
+}*/
 

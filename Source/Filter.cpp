@@ -6,16 +6,22 @@
 //
 //
 
-#include "Filter.h"
+/*#include "Filter.h"
 
-Filter::Filter(String tag, double min, double max, String filId) {
-    // calls the Controllable parent class with the tag, min and max
-    // Envelope sets the identifier, which is some string that can be used to
-    // differentiate envelopes
-    filterIdentifier = filId;
+Filter::~Filter() {
     
 }
 
-String Filter::getFilterId() {
-    return filterIdentifier;
+int Filter::getOutputCount() {
+    return 0;
 }
+
+SynthComponent Filter::getOutput(int index) {
+    SynthComponent comp;
+    return comp;
+}
+
+void Filter::renderNextBlock(int startSample, int numSamples) {
+    
+}
+*/
