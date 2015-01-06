@@ -22,13 +22,13 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
         wavetable[0][i] = sinf(2 * float_Pi * ((float)i / wavetable[0].size()));
     }*/
     
-    const int MAX_CHARS_PER_LINE = 512;
     const int WAVEFORM_SAMPLESIZE = 401;
     //const int MAX_TOKENS_PER_LINE = 20;
     //const char* const DELIMITER = " ";
-                                                    
-    File fsA("A.txt");
-    File fsB("B.txt");
+    
+    
+    File fsA(File::getCurrentWorkingDirectory().getFullPathName() + "A.txt");
+    File fsB(File::getCurrentWorkingDirectory().getFullPathName() + "B.txt");
     AudioSampleBuffer bufferA, bufferB;
     bufferA = AudioSampleBuffer();
     bufferB = AudioSampleBuffer();
