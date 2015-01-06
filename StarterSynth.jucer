@@ -6,12 +6,8 @@
   <MAINGROUP id="stuYrW" name="StarterSynth">
     <GROUP id="{7F1431DB-8D06-B57E-DE8A-9D199B945CB7}" name="Source">
       <GROUP id="{E31A122A-C7CE-349B-059A-D2B3EEC157BD}" name="SynthComponents">
-        <FILE id="sD5yTD" name="Envelope.cpp" compile="1" resource="0" file="Source/Envelope.cpp"/>
-        <FILE id="naUdaN" name="Envelope.h" compile="1" resource="0" file="Source/Envelope.h"/>
-        <FILE id="mxInTh" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
-        <FILE id="sWBGOm" name="Filter.h" compile="1" resource="0" file="Source/Filter.h"/>
-        <FILE id="USmls9" name="Mixer.cpp" compile="1" resource="0" file="Source/Mixer.cpp"/>
-        <FILE id="qRDo3F" name="Mixer.h" compile="1" resource="0" file="Source/Mixer.h"/>
+        <FILE id="USmls9" name="StereoOut.cpp" compile="1" resource="0" file="Source/StereoOut.cpp"/>
+        <FILE id="qRDo3F" name="StereoOut.h" compile="0" resource="0" file="Source/StereoOut.h"/>
       </GROUP>
       <GROUP id="{9A840CAD-13AA-064E-6BCD-9A500EF270DA}" name="Oscillators">
         <FILE id="ySZo70" name="AnalogOscillator.cpp" compile="0" resource="0"

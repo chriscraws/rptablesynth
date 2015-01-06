@@ -8,6 +8,13 @@
 
 #include "SynthComponent.h"
 
+SynthComponent::~SynthComponent() {}
+
+int SynthComponent::getOutputCount() {return 0;}
+int SynthComponent::getInputCount() {return 0;}
+SynthComponent* SynthComponent::getOutput(int index) {return nullptr;}
+void SynthComponent::renderNextBlock(int startSample, int numSamples) {}
+
 void SynthComponent::setId(String componentId) {
     componentId = componentId;
 }

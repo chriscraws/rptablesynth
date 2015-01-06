@@ -23,12 +23,12 @@ public:
     String getId();
     
     virtual int getOutputCount();
-    virtual SynthComponent getOutput(int index);
+    virtual int getInputCount();
+    virtual SynthComponent* getOutput(int index);
     virtual void renderNextBlock(int startSample, int numSamples);
     
 private:
     String componentId;
-    std::vector<double> outputBuffer;
     double sampleRate;
 };
 
