@@ -825,7 +825,8 @@ void MidiKeyboardComponent::clearKeyMappings()
     keyPresses.clear();
 }
 
-void MidiKeyboardComponent::setKeyPressForNote (const KeyPress& key, int midiNoteOffsetFromC)
+void MidiKeyboardComponent::setKeyPressForNote (const KeyPress& key,
+                                                const int midiNoteOffsetFromC)
 {
     removeKeyPressForNote (midiNoteOffsetFromC);
 
@@ -881,11 +882,6 @@ bool MidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
     }
 
     return keyPressUsed;
-}
-
-bool MidiKeyboardComponent::keyPressed (const KeyPress& key)
-{
-    return keyPresses.contains (key);
 }
 
 void MidiKeyboardComponent::focusLost (FocusChangeType)
