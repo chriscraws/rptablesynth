@@ -10,6 +10,7 @@
 
 void StereoOut::setOuputBuffer(AudioSampleBuffer *outputBuffer) {
     this->outputBuffer = outputBuffer;
+    inputBuffer.setSize(outputBuffer->getNumChannels(), outputBuffer->getNumSamples());
 }
 
 int StereoOut::getOutputCount() {

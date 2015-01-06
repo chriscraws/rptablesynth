@@ -102,5 +102,6 @@ void AnalogOscillator::renderNextBlock(int startSample, int numSamples)
     }
     
     // start next items in chain
+    output->setSampleRate(getSampleRate());
     output->renderNextBlock(startSample, numSamples);
 }

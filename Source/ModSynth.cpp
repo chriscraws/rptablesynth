@@ -18,8 +18,19 @@ struct DefaultSound : public SynthesiserSound
 
 ModSynth::ModSynth(MidiKeyboardState& state) : keyboardState(state)
 {
+    // Construct chain
+    AnalogOscillator* oscillator = new AnalogOscillator();
+    StereoOut* stereoOut = new StereoOut();
+    ModVoice* mainVoice = new ModVoice();
+    
+    mainVoice->setOscillator(oscillator);
+    mainVoice->setStereoOutput(stereoOut);
+    
+    oscillator->setOutput(stereoOut, 0);
+    
+    
     // add voices
-    synth.addVoice(new ModVoice());
+    synth.addVoice(mainVoice);
     
     synth.addSound(new DefaultSound());
 }

@@ -17,8 +17,8 @@ public:
     virtual ~SynthComponent();
     
     void setId(String id);
-    void setSampleRate(int rate);
-    int getSampleRate();
+    void setSampleRate(double rate);
+    double getSampleRate();
 
     String getId();
     

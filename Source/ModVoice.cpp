@@ -10,6 +10,14 @@
 
 #include "ModVoice.h"
 
+void ModVoice::setOscillator(Oscillator* oscillator) {
+    this->oscillator = oscillator;
+}
+
+void ModVoice::setStereoOutput(StereoOut* stereoOut) {
+    this->stereoOut = stereoOut;
+}
+
 bool ModVoice::canPlaySound(SynthesiserSound* sound)
 {
     return true;
@@ -40,4 +48,9 @@ void ModVoice::renderNextBlock(AudioSampleBuffer& outputBuffer, int startSample,
 {
     stereoOut->setOuputBuffer(&outputBuffer);
     oscillator->renderNextBlock(startSample, numSamples);
+}
+
+void ModVoice::setCurrentPlaybackSampleRate(double sampleRate) {
+    SynthesiserVoice::setCurrentPlaybackSampleRate(sampleRate);
+    oscillator->setSampleRate(sampleRate);
 }

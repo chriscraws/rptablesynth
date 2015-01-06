@@ -26,10 +26,10 @@ String SynthComponent::getId() {
 
 // This function is set up so that the SoundChain has access to change
 // the SynthComponent's sample rate.
-void SynthComponent::setSampleRate(int rate) {
+void SynthComponent::setSampleRate(double rate) {
     sampleRate = rate;
 }
 
-int SynthComponent::getSampleRate() {
+double SynthComponent::getSampleRate() {
     return sampleRate;
 }

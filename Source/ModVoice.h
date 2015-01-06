@@ -33,6 +33,8 @@ public:
     
     void renderNextBlock(AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
     
+    void setCurrentPlaybackSampleRate(double sampleRate) override;
+    
 private:
     double currentAngle;
     double angleDelta;
