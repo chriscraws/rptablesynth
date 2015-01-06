@@ -27,8 +27,8 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
     //const char* const DELIMITER = " ";
     
     
-    File fsA(File::getCurrentWorkingDirectory().getFullPathName() + "A.txt");
-    File fsB(File::getCurrentWorkingDirectory().getFullPathName() + "B.txt");
+    File fsA(File::getCurrentWorkingDirectory().getFullPathName() + "/A.txt");
+    File fsB(File::getCurrentWorkingDirectory().getFullPathName() + "/B.txt");
     AudioSampleBuffer bufferA, bufferB;
     bufferA = AudioSampleBuffer();
     bufferB = AudioSampleBuffer();
@@ -38,6 +38,7 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
     fsA.readLines(destLines);
     int i = 0;
     for (; i < destLines.strings.size(); i++) {
+        Logger::outputDebugString(destLines.strings[i]);
         wavetable[0][i] = destLines.strings[i].getFloatValue();
     }
     
@@ -53,7 +54,7 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
     
     // traverse the entire second file
     StringArray destLines2;
-    fsA.readLines(destLines2);
+    fsB.readLines(destLines2);
     
     for (; j < destLines2.strings.size(); j++) {
         wavetable[wavetable_depth][j] = destLines2.strings[j].getFloatValue();
