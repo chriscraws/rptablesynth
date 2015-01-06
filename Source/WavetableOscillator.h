@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Oscillator.h"
 #include <vector>
+#include <fstream>      // std::ifstream
 
 class WavetableOscillator : public Oscillator
 {
