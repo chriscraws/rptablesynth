@@ -51,7 +51,6 @@ void AnalogOscillator::stopNote(float velocity, bool allowTailOff) {
     else
     {
         // we're being told to stop playing immediately, so reset everything..
-        
         angleDelta = 0.0;
     }
 }
