@@ -74,6 +74,8 @@ WavetableOscillator::WavetableOscillator() :
     fsA.close();
     fsB.close();
     
+    std::cout << "We made it";
+    
 }
 
 int WavetableOscillator::getOutputCount() {
