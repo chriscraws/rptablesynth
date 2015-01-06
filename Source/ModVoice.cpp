@@ -32,7 +32,7 @@ void ModVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound*, 
 void ModVoice::stopNote(float velocity, bool allowTailOff)
 {
     oscillator->getControllable("level")->setVal(0.0);
-    //oscillator->stop();
+    oscillator->stop();
     clearCurrentNote();
 }
 
