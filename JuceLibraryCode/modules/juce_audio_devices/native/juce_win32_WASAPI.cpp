@@ -376,39 +376,16 @@ public:
 
         rates.addUsingDefaultSort (defaultSampleRate);
 
-        while (useExclusiveMode)
-        {
-            bool isOK = false;
-
-            for (int bitsToTest = format.Format.wBitsPerSample; bitsToTest >= 16; bitsToTest = ((bitsToTest - 1) & ~7))
-            {
-                format.Samples.wValidBitsPerSample = (bitsToTest + 7) & ~7;
-
-                if (SUCCEEDED (tempClient->IsFormatSupported (AUDCLNT_SHAREMODE_EXCLUSIVE, (WAVEFORMATEX*) &format, 0)))
-                {
-                    isOK = true;
-                    break;
-                }
-            }
-
-            if (isOK || format.SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)
-                break;
-
-            format.SubFormat = KSDATAFORMAT_SUBTYPE_PCM;   // Try PCM as a fallback from float..
-        }
-
-        static const int ratesToTest[] = { 44100, 48000, 88200, 96000, 176400, 192000, 352800, 384000 };
+        static const int ratesToTest[] = { 44100, 48000, 88200, 96000, 176400, 192000 };
 
         for (int i = 0; i < numElementsInArray (ratesToTest); ++i)
         {
-            if (rates.contains (ratesToTest[i]))
+            if (ratesToTest[i] == defaultSampleRate)
                 continue;
 
-            format.Format.nSamplesPerSec  = (DWORD) ratesToTest[i];
-            format.Format.nAvgBytesPerSec = (DWORD) (format.Format.nSamplesPerSec * format.Format.nChannels * format.Format.wBitsPerSample / 8);
+            format.Format.nSamplesPerSec = (DWORD) ratesToTest[i];
 
-            if (SUCCEEDED (tempClient->IsFormatSupported (useExclusiveMode ? AUDCLNT_SHAREMODE_EXCLUSIVE
-                                                                           : AUDCLNT_SHAREMODE_SHARED,
+            if (SUCCEEDED (tempClient->IsFormatSupported (useExclusiveMode ? AUDCLNT_SHAREMODE_EXCLUSIVE : AUDCLNT_SHAREMODE_SHARED,
                                                           (WAVEFORMATEX*) &format, 0)))
                 if (! rates.contains (ratesToTest[i]))
                     rates.addUsingDefaultSort (ratesToTest[i]);
@@ -423,7 +400,7 @@ public:
 
     bool isOk() const noexcept   { return defaultBufferSize > 0 && defaultSampleRate > 0; }
 
-    bool openClient (const double newSampleRate, const BigInteger& newChannels, const int bufferSizeSamples)
+    bool openClient (const double newSampleRate, const BigInteger& newChannels)
     {
         sampleRate = newSampleRate;
         channels = newChannels;
@@ -436,11 +413,8 @@ public:
         client = createClient();
 
         if (client != nullptr
-             && (tryInitialisingWithFormat (true, 4, 4, bufferSizeSamples)
-                  || tryInitialisingWithFormat (false, 4, 4, bufferSizeSamples)
-                  || tryInitialisingWithFormat (false, 3, 4, bufferSizeSamples)
-                  || tryInitialisingWithFormat (false, 3, 3, bufferSizeSamples)
-                  || tryInitialisingWithFormat (false, 2, 2, bufferSizeSamples)))
+             && (tryInitialisingWithFormat (true, 4) || tryInitialisingWithFormat (false, 4)
+                  || tryInitialisingWithFormat (false, 3) || tryInitialisingWithFormat (false, 2)))
         {
             sampleRateHasChanged = false;
 
@@ -562,7 +536,7 @@ private:
         return client;
     }
 
-    bool tryInitialisingWithFormat (const bool useFloat, const int bytesPerSampleToTry, const int bytesPerSampleContainer, const int bufferSizeSamples)
+    bool tryInitialisingWithFormat (const bool useFloat, const int bytesPerSampleToTry)
     {
         WAVEFORMATEXTENSIBLE format;
         zerostruct (format);
@@ -579,11 +553,11 @@ private:
 
         format.Format.nSamplesPerSec       = (DWORD) sampleRate;
         format.Format.nChannels            = (WORD) numChannels;
-        format.Format.wBitsPerSample       = (WORD) (8 * bytesPerSampleContainer);
-        format.Samples.wValidBitsPerSample = (WORD) (8 * bytesPerSampleToTry);
-        format.Format.nBlockAlign          = (WORD) (format.Format.nChannels * format.Format.wBitsPerSample / 8);
-        format.Format.nAvgBytesPerSec      = (DWORD) (format.Format.nSamplesPerSec * format.Format.nBlockAlign);
+        format.Format.wBitsPerSample       = (WORD) (8 * bytesPerSampleToTry);
+        format.Format.nAvgBytesPerSec      = (DWORD) (format.Format.nSamplesPerSec * numChannels * bytesPerSampleToTry);
+        format.Format.nBlockAlign          = (WORD) (numChannels * bytesPerSampleToTry);
         format.SubFormat                   = useFloat ? KSDATAFORMAT_SUBTYPE_IEEE_FLOAT : KSDATAFORMAT_SUBTYPE_PCM;
+        format.Samples.wValidBitsPerSample = format.Format.wBitsPerSample;
         format.dwChannelMask               = mixFormatChannelMask;
 
         WAVEFORMATEXTENSIBLE* nearestFormat = nullptr;
@@ -602,49 +576,22 @@ private:
 
         CoTaskMemFree (nearestFormat);
 
-        if (hr == S_OK)
+        REFERENCE_TIME defaultPeriod = 0, minPeriod = 0;
+        if (useExclusiveMode)
+            check (client->GetDevicePeriod (&defaultPeriod, &minPeriod));
+
+        GUID session;
+        if (hr == S_OK
+             && check (client->Initialize (useExclusiveMode ? AUDCLNT_SHAREMODE_EXCLUSIVE : AUDCLNT_SHAREMODE_SHARED,
+                                           0x40000 /*AUDCLNT_STREAMFLAGS_EVENTCALLBACK*/,
+                                           defaultPeriod, defaultPeriod, (WAVEFORMATEX*) &format, &session)))
         {
-            REFERENCE_TIME defaultPeriod = 0, minPeriod = 0;
+            actualNumChannels = format.Format.nChannels;
+            const bool isFloat = format.Format.wFormatTag == WAVE_FORMAT_EXTENSIBLE && format.SubFormat == KSDATAFORMAT_SUBTYPE_IEEE_FLOAT;
+            bytesPerSample = format.Format.wBitsPerSample / 8;
 
-            if (useExclusiveMode)
-            {
-                check (client->GetDevicePeriod (&defaultPeriod, &minPeriod));
-
-                if (bufferSizeSamples > 0)
-                    defaultPeriod = jmax (minPeriod, (REFERENCE_TIME) ((10000.0 * 1000.0 / format.Format.nSamplesPerSec * bufferSizeSamples) + 0.5));
-            }
-
-            for (;;)
-            {
-                GUID session;
-                hr = client->Initialize (useExclusiveMode ? AUDCLNT_SHAREMODE_EXCLUSIVE : AUDCLNT_SHAREMODE_SHARED,
-                                         0x40000 /*AUDCLNT_STREAMFLAGS_EVENTCALLBACK*/,
-                                         defaultPeriod, defaultPeriod, (WAVEFORMATEX*) &format, &session);
-
-                if (check (hr))
-                {
-                    actualNumChannels = format.Format.nChannels;
-                    const bool isFloat = format.Format.wFormatTag == WAVE_FORMAT_EXTENSIBLE && format.SubFormat == KSDATAFORMAT_SUBTYPE_IEEE_FLOAT;
-                    bytesPerSample = format.Format.wBitsPerSample / 8;
-
-                    updateFormat (isFloat);
-                    return true;
-                }
-
-                // Handle the "alignment dance" : http://msdn.microsoft.com/en-us/library/windows/desktop/dd370875(v=vs.85).aspx (see Remarks)
-                if (hr != MAKE_HRESULT (1, 0x889, 0x19)) // AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED
-                    break;
-
-                UINT32 numFrames = 0;
-                if (! check (client->GetBufferSize (&numFrames)))
-                    break;
-
-                // Recreate client
-                client = nullptr;
-                client = createClient();
-
-                defaultPeriod = (REFERENCE_TIME) ((10000.0 * 1000.0 / format.Format.nSamplesPerSec * numFrames) + 0.5);
-            }
+            updateFormat (isFloat);
+            return true;
         }
 
         return false;
@@ -668,13 +615,12 @@ public:
         close();
     }
 
-    bool open (const double newSampleRate, const BigInteger& newChannels, int bufferSizeSamples)
+    bool open (const double newSampleRate, const BigInteger& newChannels)
     {
         reservoirSize = 0;
         reservoirCapacity = 16384;
         reservoir.setSize (actualNumChannels * reservoirCapacity * sizeof (float));
-
-        return openClient (newSampleRate, newChannels, bufferSizeSamples)
+        return openClient (newSampleRate, newChannels)
                 && (numChannels == 0 || check (client->GetService (__uuidof (IAudioCaptureClient),
                                                                    (void**) captureClient.resetAndGetPointerAddress())));
     }
@@ -724,7 +670,7 @@ public:
             else
             {
                 UINT32 packetLength = 0;
-                if (!  (useExclusiveMode || check (captureClient->GetNextPacketSize (&packetLength))))
+                if (! check (captureClient->GetNextPacketSize (&packetLength)))
                     break;
 
                 if (packetLength == 0)
@@ -733,8 +679,7 @@ public:
                          || WaitForSingleObject (clientEvent, 1000) == WAIT_TIMEOUT)
                         break;
 
-                    if (! useExclusiveMode)
-                        continue;
+                    continue;
                 }
 
                 uint8* inputData;
@@ -787,11 +732,10 @@ public:
         close();
     }
 
-    bool open (const double newSampleRate, const BigInteger& newChannels, int bufferSizeSamples)
+    bool open (const double newSampleRate, const BigInteger& newChannels)
     {
-        return openClient (newSampleRate, newChannels, bufferSizeSamples)
-            && (numChannels == 0 || check (client->GetService (__uuidof (IAudioRenderClient),
-                                                               (void**) renderClient.resetAndGetPointerAddress())));
+        return openClient (newSampleRate, newChannels)
+            && (numChannels == 0 || check (client->GetService (__uuidof (IAudioRenderClient), (void**) renderClient.resetAndGetPointerAddress())));
     }
 
     void close()
@@ -809,10 +753,10 @@ public:
 
     void updateFormat (bool isFloat)
     {
-        if (isFloat)                    updateFormatWithType ((AudioData::Float32*) nullptr);
-        else if (bytesPerSample == 4)   updateFormatWithType ((AudioData::Int32*)   nullptr);
-        else if (bytesPerSample == 3)   updateFormatWithType ((AudioData::Int24*)   nullptr);
-        else                            updateFormatWithType ((AudioData::Int16*)   nullptr);
+        if (isFloat)                    updateFormatWithType ((AudioData::Float32*) 0);
+        else if (bytesPerSample == 4)   updateFormatWithType ((AudioData::Int32*) 0);
+        else if (bytesPerSample == 3)   updateFormatWithType ((AudioData::Int24*) 0);
+        else                            updateFormatWithType ((AudioData::Int16*) 0);
     }
 
     void copyBuffers (const float** const srcBuffers, const int numSrcBuffers, int bufferSize, Thread& thread)
@@ -824,21 +768,17 @@ public:
 
         while (bufferSize > 0)
         {
-            // In exclusive mode, GetCurrentPadding ALWAYS returns the buffer size, so we need
-            // to wait for the event before getting the buffer.
-            if (useExclusiveMode && (thread.threadShouldExit() || WaitForSingleObject (clientEvent, 1000) == WAIT_TIMEOUT))
-                break;
-
             UINT32 padding = 0;
             if (! check (client->GetCurrentPadding (&padding)))
                 return;
 
-            int samplesToDo = useExclusiveMode ? actualBufferSize
+            int samplesToDo = useExclusiveMode ? bufferSize
                                                : jmin ((int) (actualBufferSize - padding), bufferSize);
 
             if (samplesToDo <= 0)
             {
-                if (thread.threadShouldExit() || WaitForSingleObject (clientEvent, 1000) == WAIT_TIMEOUT)
+                if (thread.threadShouldExit()
+                     || WaitForSingleObject (clientEvent, 1000) == WAIT_TIMEOUT)
                     break;
 
                 continue;
@@ -872,14 +812,13 @@ class WASAPIAudioIODevice  : public AudioIODevice,
 {
 public:
     WASAPIAudioIODevice (const String& deviceName,
-                         const String& typeName,
-                         const String& outputDeviceID,
-                         const String& inputDeviceID,
+                         const String& outputDeviceId_,
+                         const String& inputDeviceId_,
                          const bool exclusiveMode)
-        : AudioIODevice (deviceName, typeName),
+        : AudioIODevice (deviceName, "Windows Audio"),
           Thread ("Juce WASAPI"),
-          outputDeviceId (outputDeviceID),
-          inputDeviceId (inputDeviceID),
+          outputDeviceId (outputDeviceId_),
+          inputDeviceId (inputDeviceId_),
           useExclusiveMode (exclusiveMode),
           isOpen_ (false),
           isStarted (false),
@@ -993,13 +932,13 @@ public:
         lastKnownInputChannels    = inputChannels;
         lastKnownOutputChannels   = outputChannels;
 
-        if (inputDevice != nullptr && ! inputDevice->open (currentSampleRate, inputChannels, bufferSizeSamples))
+        if (inputDevice != nullptr && ! inputDevice->open (currentSampleRate, inputChannels))
         {
             lastError = TRANS("Couldn't open the input device!");
             return lastError;
         }
 
-        if (outputDevice != nullptr && ! outputDevice->open (currentSampleRate, outputChannels, bufferSizeSamples))
+        if (outputDevice != nullptr && ! outputDevice->open (currentSampleRate, outputChannels))
         {
             close();
             lastError = TRANS("Couldn't open the output device!");
@@ -1269,10 +1208,9 @@ class WASAPIAudioIODeviceType  : public AudioIODeviceType,
                                  private DeviceChangeDetector
 {
 public:
-    WASAPIAudioIODeviceType (bool exclusive)
-        : AudioIODeviceType (exclusive ? "Windows Audio (Exclusive Mode)" : "Windows Audio"),
+    WASAPIAudioIODeviceType()
+        : AudioIODeviceType ("Windows Audio"),
           DeviceChangeDetector (L"Windows Audio"),
-          exclusiveMode (exclusive),
           hasScanned (false)
     {
     }
@@ -1329,6 +1267,7 @@ public:
     {
         jassert (hasScanned); // need to call scanForDevices() before doing this
 
+        const bool useExclusiveMode = false;
         ScopedPointer<WASAPIAudioIODevice> device;
 
         const int outputIndex = outputDeviceNames.indexOf (outputDeviceName);
@@ -1338,10 +1277,9 @@ public:
         {
             device = new WASAPIAudioIODevice (outputDeviceName.isNotEmpty() ? outputDeviceName
                                                                             : inputDeviceName,
-                                              getTypeName(),
                                               outputDeviceIds [outputIndex],
                                               inputDeviceIds [inputIndex],
-                                              exclusiveMode);
+                                              useExclusiveMode);
 
             if (! device->initialise())
                 device = nullptr;
@@ -1355,7 +1293,7 @@ public:
     StringArray inputDeviceNames, inputDeviceIds;
 
 private:
-    bool exclusiveMode, hasScanned;
+    bool hasScanned;
     ComSmartPtr<IMMDeviceEnumerator> enumerator;
 
     //==============================================================================
@@ -1555,16 +1493,12 @@ struct MMDeviceMasterVolume
 }
 
 //==============================================================================
-AudioIODeviceType* AudioIODeviceType::createAudioIODeviceType_WASAPI (bool exclusiveMode)
+AudioIODeviceType* AudioIODeviceType::createAudioIODeviceType_WASAPI()
 {
-   #if ! JUCE_WASAPI_EXCLUSIVE
-    if (exclusiveMode)
-        return nullptr;
-   #endif
+    if (SystemStats::getOperatingSystemType() >= SystemStats::WinVista)
+        return new WasapiClasses::WASAPIAudioIODeviceType();
 
-    return SystemStats::getOperatingSystemType() >= SystemStats::WinVista
-                ? new WasapiClasses::WASAPIAudioIODeviceType (exclusiveMode)
-                : nullptr;
+    return nullptr;
 }
 
 //==============================================================================
