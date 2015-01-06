@@ -26,7 +26,6 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
     //const int MAX_TOKENS_PER_LINE = 20;
     //const char* const DELIMITER = " ";
     
-    
     File fsA(File::getCurrentWorkingDirectory().getFullPathName() + "/A.txt");
     File fsB(File::getCurrentWorkingDirectory().getFullPathName() + "/B.txt");
     AudioSampleBuffer bufferA, bufferB;
