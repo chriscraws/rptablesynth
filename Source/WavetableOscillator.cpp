@@ -17,68 +17,9 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
                                                 phase("phase", 0, 1, 0),
                                                 wavetable(128, std::vector<float>(401))
 {
-    /*
     for (int i = 0; i < wavetable[0].size(); i++) {
         wavetable[0][i] = sinf(2 * float_Pi * ((float)i / wavetable[0].size()));
-    }*/
-    
-    const int MAX_CHARS_PER_LINE = 512;
-    const int WAVEFORM_SAMPLESIZE = 401;
-    //const int MAX_TOKENS_PER_LINE = 20;
-    //const char* const DELIMITER = " ";
-                                                    
-    std::ifstream fsA;
-    std::ifstream fsB;
-    fsA.open("A.txt");
-    fsB.open("B.txt");
-    AudioSampleBuffer bufferA;
-    bufferA = AudioSampleBuffer();
-    AudioSampleBuffer bufferB;
-    bufferB = AudioSampleBuffer();
-    
-    // for traversing each float of the first waveform
-    int i = 0;
-    // traverse the entire first file
-    while (!fsA.eof()) {
-        
-        // read an entire line into memory
-        char buf[MAX_CHARS_PER_LINE];
-        fsA.getline(buf, MAX_CHARS_PER_LINE);
-        
-        String lineString = String(buf);
-        wavetable[0][i++] = lineString.getFloatValue();
-        
     }
-    
-    // make sure that up to 401 is filed, continue where <i> left off from while loop
-    for (; i < WAVEFORM_SAMPLESIZE; i++) {
-        wavetable[0][i] = 0.0;
-    }
-    
-    // for traversing each float of the waveform
-    int j = 0;
-    int wavetable_depth = wavetable.size();
-    // traverse the entire second file
-    while (!fsB.eof()) {
-
-        // read an entire line into memory
-        char buf[MAX_CHARS_PER_LINE];
-        fsB.getline(buf, MAX_CHARS_PER_LINE);
-
-        String lineString = String(buf);
-        wavetable[wavetable_depth][j++] = lineString.getFloatValue();
-
-    }
-    
-    // make sure that up to 401 is filed, continue where <i> left off from while loop
-    for (; j < WAVEFORM_SAMPLESIZE; j++) {
-        wavetable[wavetable_depth][j] = 0.0;
-    }
-
-    fsA.close();
-    fsB.close();
-    
-    std::cout << "We made it";
 }
 
 int WavetableOscillator::getOutputCount() {
@@ -134,9 +75,6 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
         float last, next, sample;
         int lastIndex, nextIndex;
         
-        //low pass filter variables
-        
-        
         while (n < numSamples) {
             // get last sample in wavetable
             lastIndex = (int) angle;
@@ -153,9 +91,6 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
             // linerarly weighted sample (better anti-aliasing can be implemented)
             sample = ((delta/((float)(nextIndex - lastIndex))) * next) +
                 ((1.0 - (delta/((float)(nextIndex - lastIndex)))) * last);
-            
-            // use low pass filter http://www.musicdsp.org/showone.php?id=23
-            
             
             
             sample *= level.getBaseVal();
