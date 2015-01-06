@@ -19,6 +19,7 @@ WavetableOscillator::WavetableOscillator() :
 {
     
     const int MAX_CHARS_PER_LINE = 512;
+    const int WAVEFORM_SAMPLESIZE = 401;
     //const int MAX_TOKENS_PER_LINE = 20;
     //const char* const DELIMITER = " ";
                                                     
@@ -31,6 +32,8 @@ WavetableOscillator::WavetableOscillator() :
     AudioSampleBuffer bufferB;
     bufferB = AudioSampleBuffer();
     
+    // for traversing each float of the first waveform
+    int i = 0;
     // traverse the entire first file
     while (!fsA.eof()) {
         
@@ -39,10 +42,18 @@ WavetableOscillator::WavetableOscillator() :
         fsA.getline(buf, MAX_CHARS_PER_LINE);
         
         String lineString = String(buf);
-        lineString.getFloatValue();
-    
+        wavetable[0][i++] = lineString.getFloatValue();
+        
     }
     
+    // make sure that up to 401 is filed, continue where <i> left off from while loop
+    for (; i < WAVEFORM_SAMPLESIZE; i++) {
+        wavetable[0][i] = 0.0;
+    }
+    
+    // for traversing each float of the waveform
+    int j = 0;
+    int wavetable_depth = wavetable.size();
     // traverse the entire second file
     while (!fsB.eof()) {
 
@@ -51,8 +62,13 @@ WavetableOscillator::WavetableOscillator() :
         fsB.getline(buf, MAX_CHARS_PER_LINE);
 
         String lineString = String(buf);
-        lineString.getFloatValue();
+        wavetable[wavetable_depth][j++] = lineString.getFloatValue();
 
+    }
+    
+    // make sure that up to 401 is filed, continue where <i> left off from while loop
+    for (; j < WAVEFORM_SAMPLESIZE; j++) {
+        wavetable[wavetable_depth][j] = 0.0;
     }
 
     fsA.close();
