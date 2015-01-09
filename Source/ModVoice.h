@@ -18,7 +18,9 @@
 class ModVoice : public SynthesiserVoice
 {
 public:
-    void setOscillator(Oscillator* oscillator);
+    
+    void addOscillator(Oscillator* oscillator);
+    
     void setStereoOutput(StereoOut* stereoOut);
     
     bool canPlaySound(SynthesiserSound* sound) override;
@@ -37,6 +39,7 @@ public:
     
 private:
     bool noteOn;
+    Array<Oscillator*> oscillators;
     Oscillator* oscillator;
     StereoOut* stereoOut;
 };

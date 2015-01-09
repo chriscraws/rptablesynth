@@ -10,8 +10,9 @@
 
 #include "ModVoice.h"
 
-void ModVoice::setOscillator(Oscillator* oscillator) {
-    this->oscillator = oscillator;
+
+void ModVoice::addOscillator(Oscillator* oscillator) {
+    this->oscillators.add(oscillator);
 }
 
 void ModVoice::setStereoOutput(StereoOut* stereoOut) {
@@ -25,20 +26,22 @@ bool ModVoice::canPlaySound(SynthesiserSound* sound)
 
 void ModVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound*, int currentPitchWheelPosition)
 {
-    oscillator->startNote(midiNoteNumber, currentPitchWheelPosition);
-    oscillator->getControllable("level")->setVal(1.0);
+    for (int i = 0; i < oscillators.size(); i++) {
+        oscillators[i]->startNote(midiNoteNumber, currentPitchWheelPosition);
+    }
 }
 
 void ModVoice::stopNote(float velocity, bool allowTailOff)
 {
-    oscillator->getControllable("level")->setVal(0.0);
-    oscillator->stop();
+    for (int i = 0; i < oscillators.size(); i++) {
+        oscillators[i]->stop();
+    }
     clearCurrentNote();
 }
 
 void ModVoice::pitchWheelMoved(int newValue)
 {
-    oscillator->pitchWheelMoved(newValue);
+    //oscillator->pitchWheelMoved(newValue);
 }
 
 void ModVoice::controllerMoved(int controllerNumber, int newValue)
@@ -49,10 +52,14 @@ void ModVoice::controllerMoved(int controllerNumber, int newValue)
 void ModVoice::renderNextBlock(AudioSampleBuffer& outputBuffer, int startSample, int numSamples)
 {
     stereoOut->setOuputBuffer(&outputBuffer);
-    oscillator->renderNextBlock(startSample, numSamples);
+    for (int i = 0; i < oscillators.size(); i++) {
+        oscillators[i]->renderNextBlock(startSample, numSamples);
+    }
 }
 
 void ModVoice::setCurrentPlaybackSampleRate(double sampleRate) {
     SynthesiserVoice::setCurrentPlaybackSampleRate(sampleRate);
-    oscillator->setSampleRate(sampleRate);
+    for (int i = 0; i < oscillators.size(); i++) {
+        oscillators[i]->setSampleRate(sampleRate);
+    }
 }
