@@ -120,22 +120,52 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
         float last, next, sample;
         int lastIndex, nextIndex;
         
+        // Lanczos variables
+        int a = 3; // variable between 1 and 3, higher value = more smooth sinc curve
+        float sum, lanczosKernel;
+        
         while (n < numSamples) {
+            
+            while (angle >= wavetable[0].size()) {
+                angle -= wavetable[0].size();
+            }
+            
             // get last sample in wavetable
             lastIndex = (int) angle;
             last = wavetable[(int)position.getBaseVal()][lastIndex];
             
-            // get next sample in wavetable
-            if (angle + delta > wavetable[0].size() - 1) {
-                lastIndex -= wavetable[0].size();
-                angle -= wavetable[0].size();
+            nextIndex = ceil(angle + delta);
+            while (nextIndex >= wavetable[0].size()) {
+                nextIndex -= wavetable[0].size();
             }
-            nextIndex = (int)(angle + delta);
-            next = wavetable[(int)position.getBaseVal()][nextIndex];
+            next = wavetable[(int) position.getBaseVal()][nextIndex];
             
-            // linerarly weighted sample (better anti-aliasing can be implemented)
-            sample = ((delta/((float)(nextIndex - lastIndex))) * next) +
-                ((1.0 - (delta/((float)(nextIndex - lastIndex)))) * last);
+            // Lanczos resampling
+            // convolution of wavetable with Lanvzos kernel
+            sum = 0;
+            for (int i = angle - a + 1; i <= angle + a; i++) {
+                int actual = i;
+                if (actual >= wavetable[0].size()) {
+                    actual = (wavetable[0].size() - 1) % actual;
+                }
+                if (actual < 0) {
+                    actual += wavetable[0].size();
+                }
+                
+                // lanczos kernel
+                float lanczosArg = angle - i;
+                if (lanczosArg == 0) {
+                    lanczosKernel = 1;
+                } else if (0 < fabsf(lanczosArg) && fabsf(lanczosArg) < a) {
+                    lanczosKernel = (a * sinf(float_Pi * lanczosArg) * sinf(float_Pi * lanczosArg / a)) / (float_Pi * float_Pi * lanczosArg * lanczosArg);
+                } else {
+                    lanczosKernel = 0;
+                }
+                
+                sum += wavetable[(int)position.getBaseVal()][actual] * lanczosKernel;
+            }
+            
+            sample = sum;
             
             
             sample *= level.getBaseVal();
