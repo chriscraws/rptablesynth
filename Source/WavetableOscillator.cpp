@@ -37,7 +37,6 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
     fsA.readLines(destLines);
     int i = 0;
     for (; i < destLines.strings.size(); i++) {
-        Logger::outputDebugString(destLines.strings[i]);
         wavetable[0][i] = destLines.strings[i].getFloatValue();
     }
     
@@ -62,6 +61,14 @@ WavetableOscillator::WavetableOscillator() :    baseHz(110.0),
     // make sure that up to 401 is filed, continue where <i> left off from while loop
     for (; j < WAVEFORM_SAMPLESIZE; j++) {
         wavetable[wavetable_depth][j] = 0.0;
+    }
+    
+    // fill in rest of wavetable
+    for (int i = 1; i < wavetable.size()-1; i++) {
+        double weight = (double) i / (double) wavetable[i].size();
+        for (int j = 0; j < wavetable[i].size(); j++) {
+            wavetable[i][j] = (1.0 - weight) * wavetable[0][j] + weight * wavetable[wavetable_depth][j];
+        }
     }
     
     std::cout << "We made it";
@@ -92,7 +99,7 @@ void WavetableOscillator::startNote(int miniNoteNumber, int currentPitchWheelPos
 }
 
 void WavetableOscillator::stop() {
-    delta = 0.0;
+    //delta = 0.0;
 }
 
 void WavetableOscillator::pitchWheelMoved(int newValue) {
@@ -132,13 +139,13 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
             
             // get last sample in wavetable
             lastIndex = (int) angle;
-            last = wavetable[(int)position.getBaseVal()][lastIndex];
+            last = wavetable[(int)position.getVal(n)][lastIndex];
             
             nextIndex = ceil(angle + delta);
             while (nextIndex >= wavetable[0].size()) {
                 nextIndex -= wavetable[0].size();
             }
-            next = wavetable[(int) position.getBaseVal()][nextIndex];
+            next = wavetable[(int) position.getVal(n)][nextIndex];
             
             // Lanczos resampling
             // convolution of wavetable with Lanvzos kernel
@@ -162,13 +169,13 @@ void WavetableOscillator::renderNextBlock(int startSample, int numSamples)
                     lanczosKernel = 0;
                 }
                 
-                sum += wavetable[(int)position.getBaseVal()][actual] * lanczosKernel;
+                sum += wavetable[(int)position.getVal(n)][actual] * lanczosKernel;
             }
             
             sample = sum;
             
             
-            sample *= level.getBaseVal();
+            sample *= level.getVal(n);
             
             for (int i = (output->getInputBuffer(0))->getNumChannels(); --i >= 0;) {
                 (output->getInputBuffer(0))->setSample (i, n + startSample, sample);

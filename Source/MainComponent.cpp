@@ -119,6 +119,7 @@ synth(keyboardState)
     addAndMakeVisible(envelopeSlider2);
     addAndMakeVisible(LFOSlider1);
     addAndMakeVisible(LFOSlider2);
+    
 
 
     

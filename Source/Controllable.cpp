@@ -8,22 +8,12 @@
 
 #include "Controllable.h"
 
-Controllable::Controllable(String tag1, double min, double max, double val)
+Controllable::Controllable(String tag1, double min, double max, double val) : modifierBuffer()
 {
     minimum = min;
     maximum = max;
     value = val;
     tag = tag;
-}
-
-Controllable::~Controllable()
-{
-    // delete the vectors upon deconstruction
-    // the lines underneath instantiate blank vectors and swap them with
-    // both valueBuffer and modifierBuffer, effectively freeing their memory.
-    std::vector<double>().swap(valueBuffer);
-    std::vector<double>().swap(modifierBuffer);
-
 }
 
 // Controllable setters
@@ -50,29 +40,6 @@ void Controllable::setSampleRate(int rate) {
     sampleRate = rate;
 }
 
-// set the valueBuffer instance variable of the Controllable class by copying
-// over <numSamples> entries in the <valueBuffer> argument passed through the function.
-void Controllable::setValueBuffer(double buff[], int numSamples) {
-    for (int i = 0; i < numSamples; i++) {
-        
-        // for each value, ensure that each double in buff is between -1 and 1
-        if (buff[i] < -1) {
-            buff[i] = -1;
-        }
-        else if (buff[i] > 1) {
-            buff[i] = 1;
-        }
-        
-        valueBuffer[i] = buff[i];
-    }
-}
-
-
-// Keep track of the buffer's length
-void Controllable::setBufferLength(int length) {
-    bufferLength = length;
-}
-
 String Controllable::getTag() {
     return tag;
 }
@@ -90,9 +57,13 @@ double Controllable::getMin()
 }
 
 // get the non-base value of the Controllable
-double Controllable::getVal(int BufferIndex)
+double Controllable::getVal(int index)
 {
-    return value;
+    if (modifierBuffer.size() > 0) {
+        return modifierBuffer[index] * maximum;
+    } else {
+        return value;
+    }
 }
 
 // get the value of the knob
@@ -104,11 +75,11 @@ double Controllable::getBaseVal() {
 // ModifierBuffer is set from the envelopes. Double array <mod> serves as the buffer that
 // is being inputted into the ModifierBuffer, and int <length> is the number of doubles
 // read into the ModifierBuffer.
-void Controllable::updateModifierBuffer(double mod[], int length) {
+void Controllable::updateModifierBuffer(Array<double>* buff, int numSamples) {
     // no need to assure that modifierBuffer is of appropriate size because vectors
     // dynamically expand
-    for (int i = 0; i < length; i++) {
-        modifierBuffer[i] = mod[i];
+    for (int i = 0; i < numSamples; i++) {
+        modifierBuffer.set(i, buff->getUnchecked(i));
     }
     
 }

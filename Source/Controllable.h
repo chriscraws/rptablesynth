@@ -15,7 +15,6 @@ class Controllable
 {
 public:
     Controllable(String tag1, double min, double max, double value);
-    ~Controllable();
     
     String getTag();
     
@@ -28,9 +27,7 @@ public:
     void setMin(double min);
     void setVal(double val);
     void setSampleRate(int rate);
-    void setValueBuffer(double buff[], int numSamples);
-    void updateModifierBuffer(double mod[], int length);
-    void setBufferLength(int length);
+    void updateModifierBuffer(Array<double>* buff, int length);
     void clearModifierBuffer();
 
     
@@ -40,8 +37,8 @@ private:
     double minimum;
     double maximum;
     double baseVal;
-    std::vector<double> modifierBuffer;
-    std::vector<double> valueBuffer;
+    Array<double> modifierBuffer;
+    Array<double> valueBuffer;
     int sampleRate;
     int bufferLength;
 };

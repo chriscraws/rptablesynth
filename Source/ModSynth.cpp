@@ -8,6 +8,7 @@
 
 #include "ModSynth.h"
 #include "WavetableOscillator.h"
+#include "ADSREnvelope.h"
 
 struct DefaultSound : public SynthesiserSound
 {
@@ -21,10 +22,15 @@ ModSynth::ModSynth(MidiKeyboardState& state) : keyboardState(state)
 {
     // Construct chain
     WavetableOscillator* oscillator = new WavetableOscillator();
+    ADSREnvelope* env1 = new ADSREnvelope();
+    env1->set(100, 90000, 0, 100);
     StereoOut* stereoOut = new StereoOut();
     ModVoice* mainVoice = new ModVoice();
     
     mainVoice->addOscillator(oscillator);
+    mainVoice->addOscillator(env1);
+    env1->addControllable(oscillator->getControllable("level"));
+    env1->addControllable(oscillator->getControllable("position"));
     mainVoice->setStereoOutput(stereoOut);
     
     oscillator->setOutput(stereoOut);

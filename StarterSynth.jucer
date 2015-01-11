@@ -16,6 +16,9 @@
               file="Source/AnalogOscillator.h"/>
       </GROUP>
       <GROUP id="{E31A122A-C7CE-349B-059A-D2B3EEC157BD}" name="SynthComponents">
+        <FILE id="dWeiHW" name="ADSREnvelope.cpp" compile="1" resource="0"
+              file="Source/ADSREnvelope.cpp"/>
+        <FILE id="yBmAe3" name="ADSREnvelope.h" compile="0" resource="0" file="Source/ADSREnvelope.h"/>
         <FILE id="FRPwAW" name="StereoOut.cpp" compile="1" resource="0" file="Source/StereoOut.cpp"/>
         <FILE id="CCRAw8" name="StereoOut.h" compile="0" resource="0" file="Source/StereoOut.h"/>
       </GROUP>
