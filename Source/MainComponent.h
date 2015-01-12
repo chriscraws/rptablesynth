@@ -23,7 +23,6 @@ class MainContentComponent   : public Component
 public:
     //==============================================================================
     MainContentComponent(AudioDeviceManager* manager);
-    ~MainContentComponent();
 
     void paint (Graphics&);
     void resized();

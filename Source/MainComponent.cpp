@@ -15,7 +15,9 @@ MainContentComponent::MainContentComponent(AudioDeviceManager* manager)
 :   deviceManager(manager),
 synth(keyboardState)
 {
-    setSize (500, 400);
+    
+    Rectangle<int> desktopDimens = Desktop::getInstance().getDisplays().getMainDisplay().totalArea;
+    setSize (desktopDimens.getWidth(), desktopDimens.getHeight());
     
     // initialize the MidiKeyboardComponent
     keyboard = new MidiKeyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard);
@@ -30,6 +32,7 @@ synth(keyboardState)
     // connect the keyboard to the audio input
     audioSourcePlayer.setSource(&synth);
     deviceManager->addAudioCallback(&audioSourcePlayer);
+    deviceManager->setMidiInputEnabled("MPK mini", true);
     deviceManager->addMidiInputCallback(String::empty, &(synth.midiCollector));
     
     // set the actual displayed text in the labels
@@ -123,11 +126,6 @@ synth(keyboardState)
 
 
     
-}
-
-MainContentComponent::~MainContentComponent()
-{
-    deleteAllChildren();
 }
 
 void MainContentComponent::paint (Graphics& g)

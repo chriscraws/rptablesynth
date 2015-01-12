@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="s5qj1u" name="StarterSynth" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.StarterSynth" includeBinaryInAppConfig="1"
-              jucerVersion="3.1.0" userNotes="https://docs.google.com/a/princeton.edu/document/d/1SdCPHwvLefaPH1YfEDlP7aSBnPXuYt_SKJ5uchtKsz0/edit">
+              jucerVersion="3.1.1" userNotes="https://docs.google.com/a/princeton.edu/document/d/1SdCPHwvLefaPH1YfEDlP7aSBnPXuYt_SKJ5uchtKsz0/edit">
   <MAINGROUP id="stuYrW" name="StarterSynth">
     <GROUP id="{7F1431DB-8D06-B57E-DE8A-9D199B945CB7}" name="Source">
       <GROUP id="{9A840CAD-13AA-064E-6BCD-9A500EF270DA}" name="Oscillators">
