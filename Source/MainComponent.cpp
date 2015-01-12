@@ -21,7 +21,7 @@ synth(keyboardState)
     keyboard = new MidiKeyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard);
     
     // define the size of the keyboard
-    keyboard->setBounds(8, 10, getWidth() - 16, 64);
+    keyboard->setBounds(16, 50, getWidth() - 32, 64);
     
     addAndMakeVisible(keyboard);
     
@@ -54,10 +54,10 @@ synth(keyboardState)
     
     
     // sound the dimensions and placement of the labels
-    filterLabel1.setBounds( 15,  85, 80, 25 );
-    filterLabel2.setBounds(  140, 85, 80, 25 );
-    mixerLabel.setBounds( 275, 85, 80, 25 );
-    reverbLabel.setBounds(  410, 85, 80, 25 );
+    filterLabel1.setBounds( 15,  125, 80, 25 );
+    filterLabel2.setBounds(  140, 125, 80, 25 );
+    mixerLabel.setBounds( 275, 125, 80, 25 );
+    reverbLabel.setBounds(  410, 125, 80, 25 );
     
     // make the labels visible
     addAndMakeVisible(filterLabel1);
@@ -72,10 +72,10 @@ synth(keyboardState)
     reverbSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     
     // set the dimensions and placement of the rotary encoders
-    filterSlider1.setBounds( 10,  115, 80, 50 );
-    filterSlider2.setBounds(  135, 115, 80, 50 );
-    mixerSlider.setBounds( 270, 115, 80, 50 );
-    reverbSlider.setBounds(  405, 115, 80, 50 );
+    filterSlider1.setBounds( 10,  155, 80, 50 );
+    filterSlider2.setBounds(  135, 155, 80, 50 );
+    mixerSlider.setBounds( 270, 155, 80, 50 );
+    reverbSlider.setBounds(  405, 155, 80, 50 );
     
     // make the rotary encoders visible
     addAndMakeVisible(filterSlider1);
@@ -91,16 +91,16 @@ synth(keyboardState)
     LFOLabel2.setText(LFOStr2, DontSendNotification);
 
     // sound the dimensions and placements of the labels
-    envelopeLabel1.setBounds( 10,  175, 80, 25 );
-    envelopeLabel2.setBounds(  135, 175, 80, 25 );
-    LFOLabel1.setBounds(  275, 175, 80, 25 );
-    LFOLabel2.setBounds(  410, 175, 80, 25 );
+    envelopeLabel1.setBounds( 10,  205, 80, 25 );
+    envelopeLabel2.setBounds(  135, 205, 80, 25 );
+    LFOLabel1.setBounds(  275, 205, 80, 25 );
+    LFOLabel2.setBounds(  410, 205, 80, 25 );
 
     // make the labels visible
-    addAndMakeVisible(envelopeLabel1);
-    addAndMakeVisible(envelopeLabel2);
-    addAndMakeVisible(LFOLabel1);
-    addAndMakeVisible(LFOLabel2);
+    // addAndMakeVisible(envelopeLabel1);
+    // addAndMakeVisible(envelopeLabel2);
+    // addAndMakeVisible(LFOLabel1);
+    // addAndMakeVisible(LFOLabel2);
     
     // now set the style of the rotary encoders
     envelopeSlider1.setSliderStyle(Slider::SliderStyle::Rotary);
@@ -115,10 +115,10 @@ synth(keyboardState)
     LFOSlider2.setBounds(  405, 205, 80, 50 );
     
     // make the rotary encoders visible
-    addAndMakeVisible(envelopeSlider1);
-    addAndMakeVisible(envelopeSlider2);
-    addAndMakeVisible(LFOSlider1);
-    addAndMakeVisible(LFOSlider2);
+    //addAndMakeVisible(envelopeSlider1);
+    //addAndMakeVisible(envelopeSlider2);
+    //addAndMakeVisible(LFOSlider1);
+    //addAndMakeVisible(LFOSlider2);
     
 
 
