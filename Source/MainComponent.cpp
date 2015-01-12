@@ -29,6 +29,13 @@ synth(keyboardState)
     
     deviceManager->initialise(0, 2, 0, true);
     
+    AudioDeviceManager::AudioDeviceSetup newSettings;
+    deviceManager->getAudioDeviceSetup(newSettings);
+    
+    newSettings.bufferSize = 4096; // larger buffer
+    
+    deviceManager->setAudioDeviceSetup(newSettings, true);
+    
     // connect the keyboard to the audio input
     audioSourcePlayer.setSource(&synth);
     deviceManager->addAudioCallback(&audioSourcePlayer);
