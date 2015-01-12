@@ -33,7 +33,7 @@ ModSynth::ModSynth(MidiKeyboardState& state) : keyboardState(state)
     env1->addControllable(oscillator->getControllable("position"));
     mainVoice->setStereoOutput(stereoOut);
     
-    oscillator->setOutput(stereoOut)
+    oscillator->setOutput(stereoOut);
     
     
     // add voices
