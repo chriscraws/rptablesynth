@@ -60,7 +60,7 @@ void AnalogOscillator::renderNextBlock(int startSample, int numSamples)
     {
         int s = 0;
         while (s < numSamples) {
-            const float currentSample = (float) (sin (currentAngle) * level.getBaseVal());
+            const float currentSample = (float) (sin (currentAngle) * level.getVal(s));
             
             for (int i = (output->getInputBuffer(0))->getNumChannels(); --i >= 0;) {
                 (output->getInputBuffer(0))->setSample (i, s + startSample, currentSample);
